@@ -1,0 +1,26 @@
+{
+  "name": "about-me",
+  "version": "1.0.0",
+  "description": "Introduction site",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stregie/heroku-about-me.git"
+  },
+  "author": "ST",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stregie/heroku-about-me/issues"
+  },
+  "homepage": "https://github.com/stregie/heroku-about-me#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "path": "^0.12.7"
+  }
+}
