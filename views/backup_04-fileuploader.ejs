@@ -1,0 +1,191 @@
+<%# <html> %>
+<%- include('00a-header.ejs') %>
+    <style>
+      :root{
+        --tmpbackground3: #888;
+      }
+      #fileuploader-dropzone{
+        height: 200px;
+        position:  relative;
+      }
+
+      #fileuploader-dropzone > label{
+        /* Horizontal and vertical centering */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+      }
+      table{
+        background: var(--color-bg-1);
+      }
+      #submit-button{
+        display:  block;
+        margin-bottom:  30px;
+        margin-top: 30px;
+        width:  100%;
+
+
+      }
+    </style>
+
+    <div class = "container">
+      <h2>Fileuploader</h2>
+      <p>A simple file uploader.. Maximum size: 50 MB</p>
+      <div class = "col-md-8 offset-md-2">
+        <form id = "fileuploader-dropzone" class = "box" enctype = "multipart/form-data" method = "POST" onsubmit = ""> <!-- action = "/fileuploader/uploadfiles" -->
+          <input type = "file" name = "fileuploader-input" id = "fileuploader-input" class = "d-none" multiple = "">
+          <label for = "fileuploader-input">Click to browse or drag and drop your files here.</label>
+        </form>
+        <!-- <input type = "submit" form = "fileuploader-dropzone" class = "btn btn-basic"> -->
+        <button id = "submit-button" class = "btn btn-basic">Submit</button>
+      </div>
+      <h4>Files uploaded to the server</h4>
+      <table id = "filelist-table" class = "table table-striped table-borderless">
+        <thead>
+          <tr>
+            <th scope = "col">#</th>
+            <th scope = "col">File name</th>
+            <th scope = "col">File size</th>
+            <th scope = "col">Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        $('#fileuploader-dropzone label').on('dragover', dragoverHandler);
+        $('#fileuploader-dropzone label').on('dragenter', dragenterHandler);
+        $('#fileuploader-dropzone label').on('dragleave', dragleaveHandler);
+        $('#fileuploader-dropzone label').on('drop', dropHandler);
+        $('#fileuploader-dropzone input').on('change', displaySelectedFiles);
+        $('#submit-button').click(uploadFiles);
+        displaySelectedFiles();
+        displayFilesOnServer();
+      });
+
+      function dragoverHandler(event){
+        event.preventDefault();
+      };
+
+      function dragenterHandler(event){
+        $('#fileuploader-dropzone').css("background-color", "var(--color-bg-3");
+      };
+
+      function dragleaveHandler(event){
+        $('#fileuploader-dropzone').css("background-color", "var(--color-bg-1");
+      };
+
+      function dropHandler(event){
+        event.preventDefault();
+        $('#fileuploader-dropzone').css("background-color", "var(--color-bg-1");
+        let droppedFiles = event.originalEvent.dataTransfer.files;
+        $('#fileuploader-dropzone input').prop('files', droppedFiles);
+        displaySelectedFiles();
+      };
+
+      function displaySelectedFiles(){
+        let selectedFiles = $('#fileuploader-dropzone input').prop('files');
+        if (selectedFiles.length === 0){
+          return;
+        }
+        
+        let totalSize = 0;
+        for (let i = 0; i < selectedFiles.length; i++){
+          totalSize += selectedFiles[i].size;
+        }        
+        if (totalSize > 50 * 2 ** 20){
+          alert("Upload size exceeds the 50 MB limit!");
+        }
+
+        let $selectedFiles = "";
+        for (let i = 0; i < selectedFiles.length - 1; i++){
+          $selectedFiles += selectedFiles[i].name + " (" + displaySize(selectedFiles[i].size) + "), ";
+        }
+        $selectedFiles += selectedFiles[selectedFiles.length - 1].name + " (" + displaySize(selectedFiles[selectedFiles.length - 1].size) + ")";
+        $('#fileuploader-dropzone label').text($selectedFiles);
+      };
+
+      function displaySize(bytes){
+        if (bytes < 2 ** 10){
+          return bytes + " B";
+        }
+        if (2 ** 10 <= bytes && bytes < 2 ** 20){
+          return Math.floor(bytes / 2 ** 10) + " KB";
+        }
+        if (2 ** 20 <= bytes && bytes < 2 ** 30){
+          return Math.floor(bytes / 2 ** 20) + " MB";   
+        }
+        if (2 ** 30 <= bytes && bytes < 2 ** 40){
+          return Math.floor(bytes / 2 ** 30) + " GB";
+        }
+      };
+
+      function uploadFiles(){
+        let selectedFiles = $('#fileuploader-dropzone input').prop('files');
+        if (selectedFiles.length === 0){
+          alert("Please select the files to upload.")
+          return;
+        }
+
+        let totalSize = 0;
+        for (let i = 0; i < selectedFiles.length; i++){
+          totalSize += selectedFiles[i].size;
+        }
+        
+        if (totalSize > 50 * 2 ** 20){
+          alert("Upload size exceeds the 50 MB limit! You cannot upload the files.");
+          return;
+        }
+
+        let data = new FormData();
+        for (let i = 0; i < selectedFiles.length; i++){
+          data.append('file', document.querySelector('#fileuploader-dropzone input').files[i]);
+        }
+
+        let request = new XMLHttpRequest();
+        request.open('POST', '/fileuploader/uploadfiles'); 
+
+        request.upload.addEventListener('progress', function(e) {
+          let percent_completed = Math.floor((e.loaded / e.total) * 100);
+          $('#fileuploader-dropzone label').text(percent_completed + "% completed");
+        });
+
+        request.addEventListener('load', function(e) {
+          console.log(request.status);
+          console.log(request.response);
+          $('#fileuploader-dropzone label').text(request.response);
+        });
+
+        request.send(data);
+      };
+
+      function displayFilesOnServer(){
+        let $tableContents = "";
+        fetch('/fileuploader/getuploadedfiles')
+        .then(response => response.json())
+        .then(files => {
+          files.forEach((file, index) => {
+            $tableContents += '<tr> "\r\n"';
+            $tableContents += '  <th scope = "row">' + index  + '</th> "\r\n"';
+            $tableContents += '  <td>' + file.filename + '</td> "\r\n"';
+            $tableContents += '  <td>' + displaySize(file.filesize) + '</td> "\r\n"';
+            $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.filename + '">link</a></td> "\r\n"';
+            $tableContents += '</tr> "\r\n"';
+          });
+          $('#filelist-table tbody').html($tableContents);
+        });
+      };      
+    </script>
+
+<%- include('00b-footer.ejs') %>
+<%# </html> %>

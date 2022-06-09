@@ -92,6 +92,17 @@ body{
   padding-top: 90px;
 }
 
+.article-summary{
+  height:  400px;
+  margin-bottom:  30px;
+  overflow-y: hidden;
+}
+
+.article-summary img{
+  border: 3px solid var(--color-border-1);
+  border-radius: 10px;
+}
+
 footer{
   border-top: 10px solid var(--color-border-2);
   background-color: var(--color-bg-4);
@@ -99,4 +110,16 @@ footer{
   padding-bottom: 20px;
   border-radius: 0px;
   text-align: center;
+}
+
+h2{
+  text-align: center;
+}
+
+.box{
+  background: var(--color-bg-1);
+  border: 3px solid var(--color-border-1);
+  border-radius: 10px;
+  display: block;
+  margin: auto;   
 }

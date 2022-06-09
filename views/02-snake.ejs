@@ -1,37 +1,50 @@
-<html>
+<%# <html> %>
+<%- include('00a-header.ejs') %>
     <style>
-      h2{
-        text-align: center;
-      }
-      #snake-canvas{
-        background:  var(--color-bg-1);
-        border: 3px solid var(--color-border-1);
-        border-radius: 10px;
-        display: block;
-        margin: auto;   
-      }
+
       #start-button{
         display: block;
         margin: auto;
-        width:  806px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 806px;
       }
+      @media (min-width: 1200px){
+        #snake-screensize-alert{
+          display: block;
+        }
+        #snake-screensize-alert{
+          display: none;
+        }
+      }
+      @media (max-width: 1199px){ /*(Large devices only)*/
+        #snake-game{
+          display: none;
+        }
+        #snake-screensize-alert{
+          display: block;
+          text-align: center;
+        }
+      } 
       
     </style>
     <div class = "container">
       <h2>Snake</h2>
-      <p>A classic snake game. Use the <strong>W, S, A, D</strong> keys to control the snake. For test purposes you can also press <strong>G</strong> to make the snake grow or press <strong>F</strong> to reposition the apple to a new random place. <strong>Escape</strong> quits the game. The site is not responsive, feel free to use the zoom funcion of the browser if it is too big or too small.</p>
-      <p>Score: <span id = "score">0</span></p>
-
-      <canvas id = "snake-canvas" width = "800" height = "440"></canvas><br> <!-- Canvas width and height should be dividable by 20 -->
-      <button class = "btn btn-basic" id = "start-button">Start</button>
-      <br>
-      <br>
+      <p>A classic snake game. Use the <strong>W, S, A, D</strong> keys to control the snake. For test purposes you can also press <strong>G</strong> to make the snake grow or press <strong>F</strong> to reposition the apple to a new random place. <strong>Escape</strong> quits the game. The game window is not responsive, feel free to use the zoom funcion of the browser if it is too big or too small. <a href = "#">Read more or see the source code</a></p>
+      <p>Things to do: Nicer score display, SQL Highscore board, adjust speed, prevent multiple game start</p>
+      <div id = "snake-game">
+        <p>Score: <span id = "score">0</span></p>
+        <canvas class = "box" id = "snake-canvas" width = "800" height = "440"></canvas> <!-- Canvas width and height should be dividable by 20 -->
+        <button class = "btn btn-basic" id = "start-button">Start</button>
+      </div>
+      <h4 id = "snake-screensize-alert">Sorry, your screen is too small for the game. Try zooming out if using a computer. Unfortunately it doesn't work on phones or tablets.</h4>
     </div>
 
     <script>
       $(document).ready(function(){
         $('#start-button').click(snakeGame);
       });
+
       function snakeGame(){
 
         let score = 0;
@@ -90,8 +103,7 @@
           if(snake.nextStep[0] === -1 || snake.nextStep[0] === canvas.rightedge || snake.nextStep[1] === -1 || snake.nextStep[1] === canvas.bottom) gameOver('Wall hit');
         };
         snake.updatePosition = () => {
-          // snake.body.unshift([snake.body[0][0] + snake.direction[0], snake.body[0][1] + snake.direction[1]]);
-          snake.body.unshift(snake.getNextStep());
+          snake.body.unshift(snake.nextStep);
           if(snake.growth > 0){
             snake.growth--;
           } else {
@@ -132,7 +144,7 @@
             snake.direction = [1, 0];
           }
           if (k.code === 'KeyG'){ // grow snake - for test purposes
-            // growth = 3;
+            snake.growth = 3;
           }
           if (k.code === 'KeyF'){ // place new apple - for test purposes
             apple.newApple();
@@ -156,8 +168,7 @@
         const gameLoop = () => {
           if (tick < cycle){
             tick++;
-          } else { 
-            // new cycle starts if direction is changed or we reach max ticks
+          } else {  // new cycle starts if direction is changed or if max ticks are reached
             snake.nextStep = snake.getNextStep();
             snake.check180turn();
             snake.checkHitSelf();
@@ -174,6 +185,7 @@
         const game = setInterval(gameLoop, 10);
 
         const gameOver = (reason) => {
+          snake.growth++; // Even though the "game" interval is cleared, the last cycle runs and 
           console.log(reason);
           alert("Game Over! Your final score is: " + score);
           clearInterval(game);     
@@ -181,4 +193,5 @@
         };        
       };
     </script>
-</html>
+<%- include('00b-footer.ejs') %>
+<%# </html> %>
