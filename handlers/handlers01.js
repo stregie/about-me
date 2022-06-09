@@ -70,6 +70,6 @@ exports.fileuploaderPostFiles = (req, res) => {
 exports.fileuploaderDownload = (req, res) => {
   let dirpath = path.join(__dirname, '..', 'uploaded_files');
   console.log(req.query.file);
-  let filepath = dirpath + "\\" + req.query.file;
+  let filepath = dirpath + "/" + req.query.file;
   res.download(filepath);
 };
