@@ -34,7 +34,6 @@ html{
 
 body{  
   background-color: var(--color-bg-2);
-  font-family: 'Montserrat', sans-serif;
 }
 
 .btn-basic{
@@ -58,11 +57,10 @@ body{
 .btn-basic:active{
   box-shadow: 0px 0px 1px 1px var(--color-border-1);
 }
-
-
 .navbar{
   background-color: var(--color-bg-4);
   border-bottom: 10px solid var(--color-border-2);
+  font-family: 'Montserrat', sans-serif;
   padding:  5px 0px 5px 0px;  
 }
 

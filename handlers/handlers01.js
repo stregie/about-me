@@ -73,3 +73,17 @@ exports.fileuploaderDownload = (req, res) => {
   let filepath = dirpath + "/" + req.query.file;
   res.download(filepath);
 };
+
+exports.blog = (req, res) => {
+  res.render('05-blog.ejs', null);
+};
+
+exports.blogArticle = (req, res) => {
+  fs.readFile('./data/json/blog/Aboutme-structure.json', (err, data) => {
+    res.render('05-blog-display.ejs', JSON.parse(data));
+  })
+}
+
+exports.blogEditor = (req, res) => {
+  res.render('05-blog-editor.ejs', null);
+};

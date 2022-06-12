@@ -7,12 +7,15 @@ const ejs = require ('ejs');
 const handlers01 = require('../handlers/handlers01.js');
 
 router.get('/', handlers01.main);
-router.get('/snake', handlers01.snake);
-router.get('/mongotest', handlers01.mongotest);
-router.get('/fileuploader', handlers01.fileuploader);
+router.get('/snake/', handlers01.snake);
+router.get('/mongotest/', handlers01.mongotest);
+router.get('/fileuploader/', handlers01.fileuploader);
 router.get('/fileuploader/getuploadedfiles', handlers01.fileuploaderGetUploadedFiles);
 router.post('/fileuploader/uploadfiles', handlers01.fileuploaderPostFiles);
 router.get('/fileuploader/download/', handlers01.fileuploaderDownload);
+router.get('/blog/', handlers01.blog);
+router.get('/blog/article/', handlers01.blogArticle);
+router.get('/blog/editor/', handlers01.blogEditor);
 
 
 

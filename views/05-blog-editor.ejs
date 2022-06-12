@@ -1,0 +1,234 @@
+<%# <html> %>
+<%- include('00a-header.ejs') %>
+    <link rel = "stylesheet" href = "/css/blog.css">    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Icons from https://fonts.google.com/icons?icon.query=arrow&icon.set=Material+Icons -->
+
+    <style>
+      #blog-add-field-group{
+        display: block;
+        width:  100%;
+      }
+      #blog-add-field-group button{
+        width:  100%;
+        margin-bottom:  20px;
+      }
+
+      .article-input{
+        border:  none;
+        color:  inherit;
+        font:  inherit;
+        background:  inherit;
+        width:  100%;
+      }
+      .article-input:hover{
+        background-color: var(--color-bg-1);
+        border-radius:  2px;
+      }
+      .article-input:focus{
+        outline:  1px solid var(--color-border-2);
+        border-radius:  2px;
+        background-color:  #fafafa;
+      }
+      .article-input-group .toolbar{
+        display: none;
+      }
+      .article-input-group:focus-within .toolbar{
+        display: inline;
+      }
+      .drag-indicator-icon{
+        cursor: grab;
+      }
+      .drag-indicator-icon:active{
+        cursor: grabbing;
+      }
+      .delete-icon, .refresh-icon{
+        cursor: pointer;
+      }        
+      .img-toolbar{
+        display: block;
+      }
+      .image-input{
+        display: inline;          
+        width: 100%;
+      }
+      .img-pseudobutton{
+        border: none;
+        background-color: inherit;
+      }
+    </style>
+
+
+    <script src="/js/jquery-autoresize.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        // $('textarea.article-input').autoResize();
+        // $('textarea').keydown();
+      });
+    </script>
+    <div id = "blog-editor-templates" class = "d-none">
+      <div id = "heading-template" class = "article-input-group">
+        <h1><textarea class = "article-input" rows = "1">Heading</textarea></h1>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined" >delete</span>
+        </div>
+      </div>
+
+      <div id = "lead-paragraph-template" class = "article-input-group">
+        <p class = "lead-paragraph"><textarea class = "article-input" rows = "1">Lead paragraph</textarea></p>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined">delete</span>
+        </div>
+      </div>
+
+      <div id = "paragraph-template" class = "article-input-group">
+        <p><textarea class = "article-input" rows = "1">Paragraph</textarea></p>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined" >delete</span>
+        </div>
+      </div>
+
+      <div id = "subheading-template" class = "article-input-group">
+        <h3><textarea class = "article-input" rows = "1">Subheading</textarea></h3>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined">delete</span>
+        </div>
+      </div>
+
+      <div id = "quote-template" class = "article-input-group">
+        <blockquote><textarea class = "article-input" rows = "1">Quote</textarea></blockquote>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined" >delete</span>
+        </div>
+      </div>
+
+      <div id = "image-template" class = "article-input-group">
+        <button class = "img-pseudobutton"><img class = "article-input img-fluid" tabindex = "1" src = "/images/blog/00_frame.png"></button>
+        <div id = "img-toolbar" class = "toolbar img-toolbar container">
+          <div class = "row">
+            <div id = "imin-container" class = "col-sm-2">
+              <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+              <span class = "delete-icon material-symbols-outlined">delete</span>
+              <span class = "refresh-icon material-symbols-outlined">refresh</span>
+            </div>
+            <div id = "imin" class = "col">
+              <input class = "image-input" type = "text" value = "/images/blog/">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id = "figcaption-template" class = "article-input-group">
+        <figcaption><textarea class = "article-input" rows = "1">Figcaption</textarea></figcaption>
+        <div class = "toolbar">
+          <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
+          <span class = "delete-icon material-symbols-outlined" >delete</span>
+        </div>
+      </div>
+    </div>
+
+    <div class = "container">
+      <div class = "col-sm-12 col-md-9 offset-md-1">
+        <p>Description</p>
+        <button id = "btn-fill-with-content" class = "btn btn-basic" onclick = "fillWithContent()">Fill with predefined content</button>
+        <p>Metadata</p>
+        <div id = "blog-add-field-group" class="btn-group" role="group">
+          <button  type="button" class="btn btn-basic dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Add field
+          </button>
+          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" onclick = "addField('heading')">Heading</a>
+            <a class="dropdown-item" onclick = "addField('subheading')">Subheading</a>
+            <a class="dropdown-item" onclick = "addField('lead-paragraph')">Lead paragraph</a>
+            <a class="dropdown-item" onclick = "addField('paragraph')">Paragraph</a>
+            <a class="dropdown-item" onclick = "addField('quote')">Quote</a>
+            <a class="dropdown-item" onclick = "addField('image')">Image</a>
+            <a class="dropdown-item" onclick = "addField('figcaption')">Image caption</a>
+          </div>
+        </div>
+
+        <div id = "article-fields">
+
+        </div>     
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function(){        
+        $("#article-fields").sortable({
+          update: function(event, ui){
+            $(ui.item).find('textarea').focus();
+          }
+        });
+        // addField('image');
+        // $('img').focus();
+      });
+
+      function addField(fieldtype){
+        let $articleFields = $('#article-fields');
+        let $template = $('#' + fieldtype + '-template');
+        let $newField = $template.clone();
+        $newField.find('.drag-indicator-icon').mouseup(function(){
+          $(this).css('cursor', 'grab');
+        });
+        $newField.find('.drag-indicator-icon').mousedown(function(){
+          $(this).css('cursor', 'grabbing');
+        });
+        $newField.find('.delete-icon').click(function(){
+          $(this).closest('.article-input-group').remove();
+        });
+        $newField.removeAttr("id");
+
+        if (fieldtype === "image"){
+          $newField.find('.refresh-icon').click(function(){
+            let imgpath = $(this).parent().parent().find('.image-input').val();
+            console.log(imgpath);
+            $(this).parent().parent().parent().parent().find('img').attr('src', imgpath);
+          });
+        }
+        $newField.appendTo($articleFields);
+
+        $('#article-fields .article-input-group:last-child').find('textarea').autoResize();
+        $('textarea').keydown();
+      };
+
+      function fillWithContent(){
+        addField('image');
+        $('#article-fields .article-input-group:last-child').find('input').val('/images/blog/20211214_advanced-trainlab-das-schnellste-labor-01.jpg');
+        $('#article-fields .article-input-group:last-child').find('.refresh-icon').click();
+        addField('figcaption');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Caption for the image');
+        addField('heading');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Über Bahnlärm und wie er erfasst wird');
+        addField('lead-paragraph');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Auf der wichtigen Pendlerstrecke Berlin-Hamburg will die Deutsche Bahn ab Dezember 2021 ICEs im Halbstundentakt fahren lassen. Das kündigte Bahnchef Richard Lutz bei einem "Schienengipfel" mit Bundesverkehrsminister Andreas Scheuer (CSU) in Berlin an. Zuvor hatte das Wirtschaftsmagazin "Capital" darüber berichtet. Bislang fahren die Züge auf der Strecke einmal in der Stunde.');
+        addField('paragraph');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Karlsruhe (dpa) - "Die ICEs sind das Schlimmste", sagt Margit Rödder. Wenn die schnellen Züge der Bahn vor ihrem Haus vorbeirauschen, nervten vor allem die Windgeräusche. Die Zimmer der Töchter haben Fenster zu den Gleisen raus. "Die machen im Sommer kein Fenster auf."');
+        addField('paragraph');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Als Rödder und ihr Mann vor zehn Jahren ein Haus in Graben-Neudorf kauften, zogen sie damit auch an die Bahnstrecke Karlsruhe-Mannheim. Das war klar. "Die Bahn war schon da, wir leben mit der Bahn", sagt Rödder. Doch nun soll die Bahnstrecke vierspurig werden. Um mehr Güter auf Schienen zwischen den Regionen und den Hochseehäfen Rotterdam und Genua zu transportieren, plant die Deutsche Bahn die Erweiterung. "Das Schienennetz zwischen Mannheim und Karlsruhe zählt zu den wichtigsten Bahnverbindungen Europas", heißt es dort.');
+        addField('subheading');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Die Bürgerinitiative Karlsruhe-Molzau');
+        addField('paragraph');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Die Bürgerinitiative Karlsruhe-Molzau, die Rödder mitgegründet hat, erwartet eine Verdreifachung der Güterzüge auf 660 pro Tag - das wäre rechnerisch etwa alle zwei Minuten einer. Neben mehr Feinstaub und Enteignungen entlang der Trasse fürchten die Menschen auch mehr Lärm.');
+        addField('quote');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Lärm kann nach Angaben des Umweltbundesamts (UBA) zu schweren gesundheitlichen Schäden führen: Schwerhörigkeit, Tinnitus, Bluthochdruck, Herz-Kreislauf-Erkrankungen seien mögliche Folgen, Blutfett- und Blutzucker-Werte könnten beeinflusst werden. Der durch Lärm ausgelöste Stress wirke sich auch auf das Nervensystem aus.');
+        addField('image');
+        $('#article-fields .article-input-group:last-child').find('input').val('/images/blog/20220115_klimawerbung-deutsche-bahn-kassiert-shitstorm-2.jpg');        
+        $('#article-fields .article-input-group:last-child').find('.refresh-icon').click();
+        addField('figcaption');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Caption for the image');
+        addField('paragraph');
+        $('#article-fields .article-input-group:last-child').find('textarea').text('Laut UBA ist Schienenverkehr eine "bedeutende Lärmquelle" in Deutschland. "Über ein Drittel der deutschen Bevölkerung fühlt sich durch Schienenverkehrslärm gestört oder belästigt." Rund eine Million Menschen ist demnach in deutschen Ballungsräumen entlang von Gleisen und an Bahnlinien mit einem Verkehrsaufkommen von mindestens 30 000 Zügen pro Jahr ganztags Pegeln von mehr als 65 Dezibel ausgesetzt. Nachts seien über zwei Millionen Menschen mit Pegeln von mehr als 55 Dezibel belastet. So viel geht etwa von einem Kühlschrank aus.');
+        $('#btn-fill-with-content').hide();
+        
+        $('textarea').keydown();
+      }
+    </script>
+<%- include('00b-footer.ejs') %>
+<%# </html> %>
