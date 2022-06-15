@@ -1,22 +1,22 @@
 <%# <html> %>
 <%- include('00a-header.ejs') %>
-    <link rel = "stylesheet" href = "/css/blog.css">
+    <link rel = "stylesheet" href = "/css/news.css">
 
     <div class = "container">
       <div class = "col-sm-12 col-md-9 offset-md-1">
-        <% if(article[0].element === "mainImage"){%><img class = "img-fluid" src = "<%= article[0].content %>"><%}-%>
-        <% if(article[1].element === "mainImageCap"){%><figcaption><%= article[1].content %></figcaption><%}-%>
-        <h3><%= metadata.title -%></h3>
-        <p class = "article-author-date"><span><%= displaydate(metadata.date) %></span> <span><%= metadata.author %></span></p>
+        
+        
 <% article.forEach((item, index) => { -%>
+        <% if(item.element === "heading"){%><h2><%= item.content %></h2><%}-%>
+        <% if(item.element === "heading" && index <= 3){%><p class = "article-author-date"><span><%= displaydate(metadata.date) %></span> <span><%= metadata.author %></span></p><%}-%>
         <% if(item.element === "leadParagraph"){%><p class = "lead-paragraph"><%= item.content %></p><%}-%>
         <% if(item.element === "paragraph"){%><p><%= item.content %></p><%}-%>
-        <% if(item.element === "figcaption"){%><figcaption><%= item.content %></figcaption><%}-%>
-        <% if(item.element === "subheading"){%><h4><%= item.content %></h4><%}-%>
+        <% if(item.element === "subheading"){%><h3><%= item.content %></h3><%}-%>
         <% if(item.element === "quote"){%><blockquote><%= item.content %></blockquote><%}-%>
-        <% if(item.element === "image"){%><img class = "img-fluid" src = "<%= item.content %>"><%}-%>
+        <% if(item.element === "image"){%><img class = "img-fluid" src = "<%=item.content%>"><%}-%>
+        <% if(item.element === "figcaption"){%><figcaption><%= item.content %></figcaption><%}-%>
 <% }); -%>
-        <p><a href = "/blog/">Back</a></p>
+        <p><a href = "/news/">Back</a></p>
 
 
       </div>
