@@ -9,7 +9,9 @@ const fileuploader = require('../handlers/fileuploader.js');
 const news = require('../handlers/news.js');
 
 router.get('/', handlers01.main);
+router.get('/aboutme/', handlers01.aboutme);
 router.get('/snake/', handlers01.snake);
+router.get('/contact/', handlers01.contact);
 router.get('/mongotest/', handlers01.mongotest);
 router.get('/fileuploader/', fileuploader.fileuploader);
 router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploadedFiles);

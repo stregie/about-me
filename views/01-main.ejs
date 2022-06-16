@@ -1,24 +1,149 @@
 <%# <html> %>
 <%- include('00a-header.ejs') %>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h2 class="display-4">Hi, I'm Tamás Solymos</h2>
+        <p class="lead">And here's what I have learned so far.</p>
+      </div>
+    </div>
+    <div class = "container container-1">
+      <p>I started coding by myself in January of 2021 following the instructions of a professional tutor.</p>
+      <p>First, I learned the basics of HTML, CSS and JavaScript, then moved on to Node.js.</p>
+      <!-- <p>Right now I feel capable to create a fully-functioning personal or small-business site allowing the owner to edit the contents.</p> -->
+      <p>The purpose of the site is to demonstrate what I am capable of.</p>
+    </div>
+    <div class = "container container-2">
+      <h1>about the site</h1>
+      <p>The site is responsive, I used <a href = "https://getbootstrap.com/docs/4.6/getting-started/introduction/">Bootstrap v4.6</a>. For some parts I used native JavaScript, but I also used the <a href = "https://jquery.com/">jQuery</a> library. Backend was written in <a href = "https://nodejs.org/">Node.js</a> using <a href = "http://expressjs.com/">Express 4</a>. The templating language is <a href = "http://ejs.co">EJS</a>. I used <a href = "https://github.com/stregie/heroku-about-me">GitHub</a> for version controlling. The site is deployed on Heroku (obviously). The MySQL server I use is <a href = "https://www.cleardb.com/">ClearDB</a> and for MongoDB I use... well.. <a href = "https://www.mongodb.com/">MongoDB</a>.</p>
+      <!-- <p>Each site  -->
+    </div>
+
+
+    <style>
+      .jumbotron{
+        background:  var(--color-bg-2);
+        padding-top:  100px;
+        padding-bottom:  100px;
+        text-align:  center;
+      }
+      .container-1{
+        text-align:  center;
+        margin-bottom:  80px;
+      }
+      .container-1 p{
+        font-size: 1.2em;
+        margin-bottom: 8px;
+      }
+      .container-2 p{
+        padding: 40px;
+        text-align:  center;
+      }
+
+      .main-list-container{
+        background: var(--color-bg-3);
+        border-radius: 10px;
+        padding:  20px;
+        margin-bottom: 20px;
+      }
+      .main-list-container h4{
+        font-size: 1.8em;
+        font-weight: bold;
+
+      }
+      .main-list-container img{
+        border: 3px solid var(--color-border-1);
+        border-radius: 10px;
+      }
+      .main-list-container p{
+        margin-bottom: 5px;
+        line-height:  20px;
+      }
+
+    </style>
+
     <div class = "container">
-      <h1>Main screen</h1>
-      <p>My name is Tamás Solymos</p>
-      <p>And this is what I have learned so far</p>
-      <p>I started studying by myself in 2021 january. blabla</p>
-      <h2>about the site</h2>
-      <p>Backend with Node.js. List of npm-s used: Express, fs, templating language is EJS</p>
+    <h1>sites</h1>
+      <div class = "main-list-container col-xl-10 offset-xl-1">
+        <div class = "row">
+          <div class = "col-md-4">
+            <a href = "/snake/"><img class = "img-fluid" src = "/images/main/snake.jpg"></a>
+          </div>
+          <div class = "col">
+            <a href = "/snake/"><h4>Snake</h4></a>
+            <p>In-browser version of the classic snake game, created with native JavaScript.</p>
+            <p>Highscore stored in a MySQL database</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "main-list-container col-xl-10 offset-xl-1">
+        <div class = "row">
+          <div class = "col-md-4">
+            <a href = "/news/"><img class = "img-fluid" src = "/images/main/news-th.jpg"></a>
+          </div>
+          <div class = "col">
+            <a href = "/news/"><h4>News section</h4></a>
+            <p>Fulfills the requirements for personal or small business sites.</p>
+            <p>Each article is stored in MongoDB and rendered with the same template file.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "main-list-container col-xl-10 offset-xl-1">
+        <div class = "row">
+          <div class = "col-md-4">
+            <a href = "/news/editor/"><img class = "img-fluid" src = "/images/main/editor.jpg"></a>
+          </div>
+          <div class = "col">
+            <a href = "/news/editor/"><h4>Editor</h4></a>
+            <p>A WYSIWYG editor for the news section.</p>
+            <p>You can create new posts, edit existing ones or even save your drafts.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "main-list-container col-xl-10 offset-xl-1">
+        <div class = "row">
+          <div class = "col-md-4">
+            <a href = "/news/fileuploader/"><img class = "img-fluid" src = "/images/main/file-uploader.jpg"></a>
+          </div>
+          <div class = "col">
+            <a href = "/news/fileuploader/"><h4>File uploader</h4></a>
+            <p>Drag & drop or browse files to upload.</p>
+            <p>The uploaded files can be easily accessed for download.</p>
+          </div>
+        </div>
+      </div>
+
+      <!--  <div class = "row">
+        <div class = "row col-xl-10 offset-xl-1 main-list-container">
+          <div class = "col-md-4">
+            <a href = "/news/"><img class = "img-fluid" src = "/images/main/news-th.jpg"></a>
+          </div>
+          <div class = "col">
+            <a href = "/news/"><h4>News section</h4></a>
+            <p></p>
+            <p>Each article is stored in MongoDB and rendered with the same template file</p>
+          </div>
+        </div>
+      </div>
+
+      <div class = "row main-list col-xl-10 offset-xl-1">
+        <div class = "col-md-4">
+          <a href = "/news/editor/"><img class = "img-fluid" src = "/images/main/editor.jpg"></a>
+        </div>
+        <div class = "col">
+          <a href = "/news/editor/"><h4>Editor</h4></a>
+          <p>A WYSIWYG editor for the news section.</p>
+          <p>You can create new posts, edit existing ones or even save your drafts.</p>
+        </div>
+      </div> -->
+
+      <!-- You can use drag and drop -->
+
       
-      <h1>About me page</h1>
-      <p>BME: scientific minded</p>
-
-      <div class = "row">
-        <div class = "article-summary col-lg-4 col-sm-6">
-          <a href = "/snake"><img class = "img-fluid img-border" src = "/images/screenshots/snake.jpg"></a>
-          <a href = "/snake"><h3>Snake</h3></a>
-          <p>In-browser version of the classic snake game, created with native JavaScript.</p>
-        </div>
-
-        <div class = "article-summary col-lg-4 col-sm-6">
+      
+       <!--  <div class = "article-summary col-lg-4 col-sm-6">
           <a href = "/"><img class = "img-fluid img-border" src = "/images/screenshots/db-placeholder.webp"></a>
           <a href = "/"><h3>Something else</h3></a>
           <p>This is some other application I will develop soon. It will be awesome, I promise. I know everyone says the same, but trust me. It will be mindblowing. Or maybe not who knows.</p>
@@ -46,7 +171,7 @@
           <a href = "/"><img class = "img-fluid img-border" src = "/images/screenshots/db-placeholder.webp"></a>
           <a href = "/"><h3>Something else</h3></a>
           <p>This is some other application I will develop soon. It will be awesome, I promise. I know everyone says the same, but trust me. It will be mindblowing. Or maybe not who knows.</p>
-        </div>
+        </div> -->
 
 
       </div>

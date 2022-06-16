@@ -8,9 +8,17 @@ exports.main = (req, res) => {
   res.render('01-main.ejs', null);
 };
 
+exports.aboutme = (req, res) => {
+  res.render('02-aboutme.ejs', null);
+};
+
 exports.snake = (req, res) => {
   res.render('02-snake.ejs', null);
 };
+
+exports.contact = (req, res) => {
+  res.render('06-contact.ejs', null);
+}
 
 exports.mongotest = (req, res) => {
   let mongodat = {};

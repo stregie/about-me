@@ -9,7 +9,7 @@
 <% article.forEach((item, index) => { -%>
         <% if(item.element === "heading"){%><h2><%= item.content %></h2><%}-%>
         <% if(item.element === "heading" && index <= 3){%><p class = "article-author-date"><span><%= displaydate(metadata.date) %></span> <span><%= metadata.author %></span></p><%}-%>
-        <% if(item.element === "leadParagraph"){%><p class = "lead-paragraph"><%= item.content %></p><%}-%>
+        <% if(item.element === "lead-paragraph"){%><p class = "lead-paragraph"><%= item.content %></p><%}-%>
         <% if(item.element === "paragraph"){%><p><%= item.content %></p><%}-%>
         <% if(item.element === "subheading"){%><h3><%= item.content %></h3><%}-%>
         <% if(item.element === "quote"){%><blockquote><%= item.content %></blockquote><%}-%>
