@@ -65,12 +65,12 @@
 }
 @media (min-width: 380px) and (max-width: 575px) { /* xs */
   #jumbotron-text{
-    top: 60px;
+    top: 30px;
     right: 20px;
-    width: 50%;
+    width: 60%;
   }
   #jumbotron-text h2{
-    font-size: 2rem;
+    font-size: 1rem;
   }
   #jumbotron-text p{
     font-size: 1rem;
@@ -83,7 +83,7 @@
     width: 50%;
   }
   #jumbotron-text h2{
-    font-size: 1.8rem;
+    font-size: 1rem;
   }
   #jumbotron-text p{
     font-size: 0.9rem;
