@@ -27,6 +27,7 @@ router.get('/news/editor/checkid/', news.checkID);
 router.post('/news/editor/insert', news.insert);
 router.post('/news/editor/update', news.update);
 router.post('/news/editor/delete', news.delete);
+router.get('/news/editor/images/', news.images);
 
 router.get('/fileuploader/', fileuploader.fileuploader);
 router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploadedFiles);

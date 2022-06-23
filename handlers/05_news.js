@@ -155,3 +155,7 @@ exports.delete = (req, res) => {
     });
   });
 };
+
+exports.images = (req, res) => {
+  res.render('05_news-images.ejs', null);
+}
