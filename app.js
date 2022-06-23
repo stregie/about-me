@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // From express docs - for "req.body"
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Routes
 const routes = require('./routes/routes');

@@ -1,0 +1,91 @@
+<%# <html> %>
+<%- include('00a_header.ejs') %>
+    <link rel = "stylesheet" href = "/css/01_main.css">    
+
+    <div class="container">
+      <div class="jumbotron jumbotron-fluid">
+        <!-- <img src = "/images/main/general-portrait-blank.jpg" class = "img-fluid"> -->
+        <!-- <img src = "/images/main/general-portrait.jpg" class = "img-fluid"> -->
+        <img src = "/images/main/gigantes2.jpg" class = "img-fluid">
+        <div id = "jumbotron-text">
+          <h2 class="display-4">Hi, I'm Tamás Solymos</h2>
+          <p class="lead">And here's what I have learned so far</p>
+        </div>
+      </div>
+    </div>
+
+    <div class = "container">
+      <div id = "jumbotron-subtext">
+        <p>I started coding by myself in January of 2021</p>
+        <p>First, I learned the basics of HTML, CSS and JavaScript, then moved on to Node.js</p>
+        <p>The purpose of the site is to demonstrate what I am capable of</p>
+      </div>
+    </div>
+
+    <div id = "about-site-container" class = "container">
+      <h1>about the site</h1>
+      <div>
+        <p>The site is responsive, I used <a href = "https://getbootstrap.com/docs/4.6/getting-started/introduction/">Bootstrap v4.6</a>. For some parts I used native JavaScript, but I also used the <a href = "https://jquery.com/">jQuery</a> library. Backend was written in <a href = "https://nodejs.org/">Node.js</a> using <a href = "http://expressjs.com/">Express 4</a>. The templating language is <a href = "http://ejs.co">EJS</a>. I used <a href = "https://github.com/stregie/heroku-about-me">GitHub</a> for version controlling. The site is deployed on Heroku (obviously). The MySQL server I use is <a href = "https://www.cleardb.com/">ClearDB</a> and for no-SQL database I use <a href = "https://www.mongodb.com/">MongoDB</a>.</p>
+        <p>Each site in the 'things I can do' section represents a different skill. Neither of them was created by following a step-by-step tutorial.
+        <p>The next improvement will be a sign in / out feature using <a href = "http://www.passportjs.org/">Passport.js</a> to restrict the news editor for authenticated users only. I also plan to learn the basics of Angular or React and later on Python.</p>
+      </div>
+    </div>
+
+    <div id = "sites-list" class = "container">
+      <h1>sites</h1>
+        <div class = "sites-list-container col-xl-10 offset-xl-1">
+          <div class = "row">
+            <div class = "col-md-4">
+              <a href = "/snake/"><img class = "img-fluid bordered-box" src = "/images/main/snake.jpg"></a>
+            </div>
+            <div class = "col">
+              <a href = "/snake/"><h4>Snake</h4></a>
+              <p>In-browser version of the classic snake game, created with native JavaScript. Highscores are stored in a MySQL database.</p>
+              <p>The game can be played on desktop only.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class = "sites-list-container col-xl-10 offset-xl-1">
+          <div class = "row">
+            <div class = "col-md-4">
+              <a href = "/news/"><img class = "img-fluid bordered-box" src = "/images/main/news-th.jpg"></a>
+            </div>
+            <div class = "col">
+              <a href = "/news/"><h4>News section</h4></a>
+              <p>Fulfills the requirements for personal or small business sites.</p>
+              <p>Each article is stored in MongoDB and rendered with the same template file.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class = "sites-list-container col-xl-10 offset-xl-1">
+          <div class = "row">
+            <div class = "col-md-4">
+              <a href = "/news/editor/"><img class = "img-fluid bordered-box" src = "/images/main/editor.jpg"></a>
+            </div>
+            <div class = "col">
+              <a href = "/news/editor/"><h4>Editor</h4></a>
+              <p>A WYSIWYG editor for the news section.</p>
+              <p>You can create new posts, edit existing ones or even save your drafts.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class = "sites-list-container col-xl-10 offset-xl-1">
+          <div class = "row">
+            <div class = "col-md-4">
+              <a href = "/news/fileuploader/"><img class = "img-fluid bordered-box" src = "/images/main/file-uploader.jpg"></a>
+            </div>
+            <div class = "col">
+              <a href = "/news/fileuploader/"><h4>File uploader</h4></a>
+              <p>Drag & drop or browse files to upload.</p>
+              <p>The uploaded files can be easily accessed for download.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<%- include('00b_footer.ejs') %>
+<%# </html> %>
