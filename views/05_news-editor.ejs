@@ -6,10 +6,24 @@
 
     <script src="/js/jquery-autoresize.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <style>
+
+    </style>
+
+    <script>
+      // $(document).ready(function(){
+      //   $('#firstspan').css('background', 'red');
+      //   $('#firstspan').click(function(){
+      //      console.log("click");
+      //      $(this).closest('textarea').focus();
+      //   });
+      // });
+    </script>
 
     <div id = "news-editor-templates" class = "d-none">
       <div id = "heading-template" class = "article-input-group" element = "heading">
         <h2><textarea class = "article-input" rows = "1">Heading</textarea></h2>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined" >delete</span>
@@ -18,6 +32,7 @@
 
       <div id = "subheading-template" class = "article-input-group" element = "subheading">
         <h3><textarea class = "article-input" rows = "1">Subheading</textarea></h3>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined">delete</span>
@@ -26,6 +41,7 @@
 
       <div id = "lead-paragraph-template" class = "article-input-group" element = "lead-paragraph">
         <p class = "lead-paragraph"><textarea class = "article-input" rows = "1">Lead paragraph</textarea></p>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined">delete</span>
@@ -34,6 +50,7 @@
 
       <div id = "paragraph-template" class = "article-input-group" element = "paragraph">
         <p><textarea class = "article-input" rows = "1">Paragraph</textarea></p>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined" >delete</span>
@@ -42,6 +59,7 @@
 
       <div id = "quote-template" class = "article-input-group" element = "quote">
         <blockquote><textarea class = "article-input" rows = "1">Quote</textarea></blockquote>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined" >delete</span>
@@ -49,7 +67,8 @@
       </div>
 
       <div id = "image-template" class = "article-input-group" element = "image">
-        <button class = "img-pseudobutton"><img class = "article-input img-fluid" tabindex = "1" src = "/images/news/00_frame.png"></button>
+        <button class = "img-pseudobutton"><img class = "article-input img-fluid" tabindex = "1" src = "/images/news/00_placeholder.jpg"></button>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div id = "img-toolbar" class = "toolbar img-toolbar container">
           <div class = "row">
             <div id = "imin-container" class = "col-sm-2">
@@ -65,11 +84,15 @@
               </div>
             </div>
           </div>
+          <div class = "row">
+            <p class = "img-url-list"><a href = "/news/editor/images/" target = "_blank">List of image URLs</a></p>
+          </div>
         </div>
       </div>
 
       <div id = "figcaption-template" class = "article-input-group" element = "figcaption">
         <figcaption><textarea class = "article-input" rows = "1">Figcaption</textarea></figcaption>
+        <span class = "edit material-symbols-outlined">edit</span>
         <div class = "toolbar">
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined" >delete</span>
@@ -83,9 +106,12 @@
       <div class = "col-sm-12 col-md-9 offset-md-1">
         <!-- <button id = "btn-fill-with-content" class = "btn btn-simple" onclick = "fillWithContent()">Fill with predefined content</button> -->
                 
+        <div id = "article-fields">
+        </div>
+
         <div id = "news-add-field" class="btn-group" role="group">
           <button  type="button" class="btn btn-simple dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Add field
+            Add more content
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <a class="dropdown-item" onclick = "addField('heading')">Heading</a>
@@ -95,11 +121,9 @@
             <a class="dropdown-item" onclick = "addField('quote')">Quote</a>
             <a class="dropdown-item" onclick = "addField('image')">Image</a>
             <a class="dropdown-item" onclick = "addField('figcaption')">Image caption</a>
+            <div class="dropdown-divider"></div>
+            <span class="dropdown-item-text"><b>Once added you can grab and move them elsewhere</b></span>
           </div>
-        </div>
-
-        <div id = "article-fields">
-
         </div>
 
         <form id = "metadata">

@@ -21,6 +21,11 @@ function addField(fieldtype){
   $newField.find('.delete-icon').click(function(){
     $(this).closest('.article-input-group').remove();
   });
+  $newField.find('.edit').click(function(){
+    $(this).parent().children().first().children().focus();
+    // console.log("click");
+    // $(this).closest('.article-input-group').remove();
+  });
   $newField.removeAttr("id");
 
   if (fieldtype === "image"){

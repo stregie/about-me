@@ -39,6 +39,7 @@ figcaption {
   width: 100%;
   margin-bottom: 20px;
 }
+
 .article-input {
   border: none;
   color: inherit;
@@ -61,6 +62,21 @@ figcaption {
 .article-input-group:focus-within .toolbar {
   display: inline;
 }
+.article-input-group,
+.article-input-group textarea{
+  position: relative;
+}
+.edit{
+  position: absolute;
+  top: 0px;
+  right: -25px;
+}
+.edit:hover{
+  cursor: pointer;
+}
+.article-input-group:focus-within .edit {
+  display: none;
+}
 .drag-indicator-icon {
   cursor: grab;
 }
@@ -69,7 +85,8 @@ figcaption {
 }
 .delete-icon, .refresh-icon {
   cursor: pointer;
-}        
+} 
+.article-input     
 .img-toolbar {
   display: block;
 }
@@ -84,7 +101,10 @@ figcaption {
 .img-pseudobutton:hover {
   opacity: 0.8;
 }
+.img-url-list {
+  margin-left: auto;
+  margin-right: 15px
+}
 #delete-save-publish div {
   margin-bottom:  16px;
 }
-

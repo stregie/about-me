@@ -1,34 +1,42 @@
 <%# <html> %>
 <%- include('00a_header.ejs') %>
-    <link rel = "stylesheet" href = "/css/news.css">
+    <link rel = "stylesheet" href = "/css/00_general.css">  
+    <link rel = "stylesheet" href = "/css/05_news.css">  
+    <style>
+      ul {
+        list-style-type: none;
+      }
+      li {
+        margin-bottom: 5px;
+      }
+    </style>
     
     <div class = "container">
       <h1>images for the news editor</h1>
-      <ul style = "list-style-type: none;">
-        <li>20211214_advanced-trainlab-das-schnellste-labor-01.jpg</li>
-        <li>20211214_advanced-trainlab-das-schnellste-labor-01-th.jpg</li>
-        <li>20220115_klimawerbung-deutsche-bahn-kassiert-shitstorm-1.jpg</li>
-        <li>20220115_klimawerbung-deutsche-bahn-kassiert-shitstorm-1-th.jpg</li>
-        <li>20220115_klimawerbung-deutsche-bahn-kassiert-shitstorm-2.jpg</li>
-        <li>20220612_uber-bahnlarm-und-wie-er-01.jpg</li>
-        <li>20220612_uber-bahnlarm-und-wie-er-01-th.jpg</li>
-        <li>20220612_uber-bahnlarm-und-wie-er-02.jpg</li>
-        <li>20220614_ICE-lernen-25-jahren01.jpg</li>
-        <li>20220614_ICE-lernen-25-jahren01-th.jpg</li>
-        <li>20220614_ICE-lernen-25-jahren02.jpg</li> 
-        <li>20220615_das-verdienen-die-ex-chefs.jpg</li>
-        <li>20220615_das-verdienen-die-ex-chefs-th.jpg</li>
-        <li>20220616_alternative-zur-diesellok-ist-wasserstoff.jpg</li>
-        <li>20220616_alternative-zur-diesellok-ist-wasserstoff-th.jpg</li>
-        <li>20220616_winter-wasser-und-zu-wenig-01.jpg</li>
-        <li>20220616_winter-wasser-und-zu-wenig-01-th.jpg</li>
-        <li>20220616_winter-wasser-und-zu-wenig-02.jpg</li>
-        <li>20220616_winter-wasser-und-zu-wenig-03.jpg</li> 
-        <li>20220623_zug-um-zug-deutsche-bahn-01.jpg</li>
-        <li>20220623_zug-um-zug-deutsche-bahn-01-th.jpg</li>
-        <li>20220623_zug-um-zug-deutsche-bahn-02.jpg</li>
+      <p><strong>Copy and paste the links to the input field under the placeholder</strong></p>
+      <p>The editor combined with the file uploader would be more user-friendly. Until this is completed, only pre-uploaded images can be inserted to the articles.</p>
+      <ul>
+        <% fileNames.forEach(file => { %>
+        <li><button class = "btn btn-simple copy-to-clipboard">Copy to Clipboard</button> <span class = "img-url"><a href = "/images/news/<%=file%>">/images/news/<%=file%></a></span></li>
+        <% }); %>
       </ul>
     </div>
+
+    <script>
+      $(document).ready(function(){
+        $('.copy-to-clipboard').click(function(){
+          let link = $(this);
+          let url = $(link).parent().find('.img-url').text();
+          navigator.clipboard.writeText(url);
+          $(link).text("copied");
+          setTimeout(function(){
+            $(link).text("Copy to Clipboard");          
+          }, 3000);
+        });        
+      });
+
+
+    </script>
 
 <%- include('00b_footer.ejs') %>
 <%# </html> %>

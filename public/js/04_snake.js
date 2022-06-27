@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 var firstGame = true;
-var cycle = 2; // length of one cycle - can be used adjust speed of game. Min 2
+var cycle = 4; // length of one cycle - can be used adjust speed of game. Min 2
 var score = 0;
-var speed = 5; // This is just a displayed value
+var speed = 4; // This is just a displayed value
 var lowestSpeed = 5;
 document.getElementById('score').textContent = score;
 document.getElementById('speed-display').textContent = speed;
@@ -114,16 +114,20 @@ function snakeGame() {
   const handleKeyPress = (k) => {
     snake.currentDirection = [...snake.direction]; // Stores the last direction before the keystrok
 
-    if (k.code === 'KeyW'){ // move up
+    if (k.code === 'KeyW' || k.code === 'ArrowUp'){ // move up
+      k.preventDefault(); // to prevent browser scrolling
       snake.direction = [0, -1];
     }
-    if (k.code === 'KeyS'){ // move down
+    if (k.code === 'KeyS' || k.code === 'ArrowDown'){ // move down
+      k.preventDefault();
       snake.direction = [0, 1];
     }
-    if (k.code === 'KeyA'){ // move left
+    if (k.code === 'KeyA' || k.code === 'ArrowLeft'){ // move left
+      k.preventDefault();
       snake.direction = [-1, 0];
     }
-    if (k.code === 'KeyD'){ // move right
+    if (k.code === 'KeyD' || k.code === 'ArrowRight'){ // move right
+      k.preventDefault();
       snake.direction = [1, 0];
     }
     if (k.code === 'KeyG'){ // grow snake - for test purposes
@@ -142,7 +146,7 @@ function snakeGame() {
       tick = cycle;
     } 
   };
-  document.addEventListener('keydown', handleKeyPress);
+  document.addEventListener('keydown', handleKeyPress, false);
 
 
   let tick = 0;

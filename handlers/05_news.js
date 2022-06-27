@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const mongoUrl = "mongodb+srv://st:gSaCRgRWC4niM4fd@introduction-site.8s83u.mongodb.net/?retryWrites=true&w=majority";
+const fs = require('fs');
 
 exports.articleList = (req, res) => {
   MongoClient.connect(mongoUrl, { useUnifiedTopology: true }, function(err, db) {
@@ -157,5 +158,13 @@ exports.delete = (req, res) => {
 };
 
 exports.images = (req, res) => {
-  res.render('05_news-images.ejs', null);
+  fs.readdir('./public/images/news/', (err, files) => {
+    let data = {
+      fileNames: []
+    };
+    files.forEach(file => {
+        data.fileNames.push(file);        
+    });
+    res.render('05_news-images.ejs', data);
+  })
 }
