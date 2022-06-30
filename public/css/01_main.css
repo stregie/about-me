@@ -110,6 +110,9 @@
 #about-site-container p{
   text-align: center;
 }
+#about-site-container a{
+  font-weight: bold;
+}
 
 
 /* sites section */
