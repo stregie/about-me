@@ -24,7 +24,7 @@ exports.fileuploaderPostFiles = (req, res) => {
   
   const form = new formidable.IncomingForm();
   form.multiples = true;
-  form.maxFileSize = 50 * 1024 * 1024; // FieldsSize? sth doesnt work now.
+  form.maxFileSize = 50 * 1024 * 1024; // FieldsSize? Unsure if it is the right property
   form.uploadDir = dirpath;
 
   form.parse(req);
