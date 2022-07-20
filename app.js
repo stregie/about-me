@@ -1,5 +1,6 @@
-const express = require('express');
 const path = require('path');
+const envVars = require('./config/env-vars.js');
+const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
 
@@ -29,7 +30,7 @@ app.use('/', routes);
 // });
 
 // Server
-const PORT = process.env.PORT || 6565;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

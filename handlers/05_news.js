@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = "mongodb+srv://st:gSaCRgRWC4niM4fd@introduction-site.8s83u.mongodb.net/?retryWrites=true&w=majority";
 const fs = require('fs');
+
+const mongoUrl = process.env.MONGODB_URL;
 
 exports.articleList = (req, res) => {
   MongoClient.connect(mongoUrl, { useUnifiedTopology: true }, function(err, db) {

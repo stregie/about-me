@@ -2,7 +2,8 @@ const fs = require('fs');
 const formidable = require('formidable');
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
-const mongoUrl = "mongodb+srv://st:gSaCRgRWC4niM4fd@introduction-site.8s83u.mongodb.net/?retryWrites=true&w=majority";
+
+const mongoUrl = process.env.MONGODB_URL;
 // const nodemailer = require('nodemailer');
 
 exports.main = (req, res) => {
@@ -22,7 +23,7 @@ exports.contactGet = (req, res) => {
   let mongodat = {
     name: req.body.contactname,
     mail: req.body.contactmail,
-    date: new Date(),
+    date: new Date(), //notgood - gives server date
     company: req.body.contactcompany,
     message: req.body.contactmessage
   }
