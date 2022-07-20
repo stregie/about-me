@@ -12,6 +12,7 @@ function submit(){
   let data = {
     contactname: $('#contactname').find('input').val(),
     contactcompany: $('#contactcompany').find('input').val(),
+    contactdate: new Date(),
     contactmail: $('#contactmail').find('input').val(),
     contactmessage: $('#contactmessage').find('textarea').val()
   }

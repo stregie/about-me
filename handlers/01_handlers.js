@@ -17,16 +17,16 @@ exports.aboutme = (req, res) => {
 
 exports.contact = (req, res) => {
   res.render('03_contact.ejs', null);
-}
+};
 
 exports.contactGet = (req, res) => {
   let mongodat = {
     name: req.body.contactname,
     mail: req.body.contactmail,
-    date: new Date(), //notgood - gives server date
+    date: req.body.contactdate,
     company: req.body.contactcompany,
     message: req.body.contactmessage
-  }
+  };
 
   MongoClient.connect(mongoUrl, { useUnifiedTopology: true }, function(err, db) {
     if (err) throw err;
