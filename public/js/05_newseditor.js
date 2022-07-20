@@ -101,17 +101,17 @@ function decide(action, collection){
     if(exist === false && action === "save"){
       submit("insert", "news-drafts");
     }
-    if(exist === true && action == "publish"){
+    if(exist === true && action === "publish"){
       submit("update", "news-articles");
     }
-    if(exist === false && action == "publish"){
+    if(exist === false && action === "publish"){
       submit("insert", "news-articles");
     }
-    if(exist === true && action == "delete"){
+    if(exist === true && action === "delete"){
       console.log("decide delete", collection);
       submit("delete", collection);
     }
-    if(exist === false && action == "delete"){
+    if(exist === false && action === "delete"){
       $('#delete-question').addClass('d-none');
       $('#general-response').removeClass('d-none');
       $('#general-response-message').text("There is no article with this ID.");    
@@ -147,7 +147,7 @@ function submit(action, collection){
   .then(res => res.text())
   .then(response => {
     alert(response);
-    $(location).attr('href','/news/');
+    $(location).attr('href','/news/editor/');
   })
   .catch((error) => {
    alert(error);
@@ -210,42 +210,3 @@ function generateIdforForm(){
   let id = generateId(date, title);
   $('#metadata-id').val(id); 
 };
-
-
-
-// function fillWithContent(){
-//   $('#article-fields').html('');
-//   addField('image');
-//   $('#article-fields .article-input-group:last-child').find('input').val('/images/news/20220612_uber-bahnlarm-und-wie-er-01.jpg');
-//   $('#article-fields .article-input-group:last-child').find('.refresh-btn').click();
-//   addField('figcaption');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Auf der Bahnstrecke Karlsruhe-Mannheim fährt ein Zug an Häusern vorbei. Foto: dpa');
-//   addField('heading');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Über Bahnlärm und wie er erfasst wird');
-//   addField('lead-paragraph');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Auf der wichtigen Pendlerstrecke Berlin-Hamburg will die Deutsche Bahn ab Dezember 2021 ICEs im Halbstundentakt fahren lassen. Das kündigte Bahnchef Richard Lutz bei einem "Schienengipfel" mit Bundesverkehrsminister Andreas Scheuer (CSU) in Berlin an. Zuvor hatte das Wirtschaftsmagazin "Capital" darüber berichtet. Bislang fahren die Züge auf der Strecke einmal in der Stunde.');
-//   addField('paragraph');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Karlsruhe (dpa) - "Die ICEs sind das Schlimmste", sagt Margit Rödder. Wenn die schnellen Züge der Bahn vor ihrem Haus vorbeirauschen, nervten vor allem die Windgeräusche. Die Zimmer der Töchter haben Fenster zu den Gleisen raus. "Die machen im Sommer kein Fenster auf."');
-//   addField('paragraph');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Als Rödder und ihr Mann vor zehn Jahren ein Haus in Graben-Neudorf kauften, zogen sie damit auch an die Bahnstrecke Karlsruhe-Mannheim. Das war klar. "Die Bahn war schon da, wir leben mit der Bahn", sagt Rödder. Doch nun soll die Bahnstrecke vierspurig werden. Um mehr Güter auf Schienen zwischen den Regionen und den Hochseehäfen Rotterdam und Genua zu transportieren, plant die Deutsche Bahn die Erweiterung. "Das Schienennetz zwischen Mannheim und Karlsruhe zählt zu den wichtigsten Bahnverbindungen Europas", heißt es dort.');
-//   addField('subheading');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Die Bürgerinitiative Karlsruhe-Molzau');
-//   addField('paragraph');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Die Bürgerinitiative Karlsruhe-Molzau, die Rödder mitgegründet hat, erwartet eine Verdreifachung der Güterzüge auf 660 pro Tag - das wäre rechnerisch etwa alle zwei Minuten einer. Neben mehr Feinstaub und Enteignungen entlang der Trasse fürchten die Menschen auch mehr Lärm.');
-//   addField('quote');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Lärm kann nach Angaben des Umweltbundesamts (UBA) zu schweren gesundheitlichen Schäden führen: Schwerhörigkeit, Tinnitus, Bluthochdruck, Herz-Kreislauf-Erkrankungen seien mögliche Folgen, Blutfett- und Blutzucker-Werte könnten beeinflusst werden. Der durch Lärm ausgelöste Stress wirke sich auch auf das Nervensystem aus.');
-//   addField('image');
-//   $('#article-fields .article-input-group:last-child').find('input').val('/images/news/20220612_uber-bahnlarm-und-wie-er-02.jpg');        
-//   $('#article-fields .article-input-group:last-child').find('.refresh-btn').click();
-//   addField('figcaption');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Immer mehr Anwohner regen sich über den Lärm der Züge auf. Quelle: Rüdiger Wölk/imago-images-bilder');
-//   addField('paragraph');
-//   $('#article-fields .article-input-group:last-child').find('textarea').text('Laut UBA ist Schienenverkehr eine "bedeutende Lärmquelle" in Deutschland. "Über ein Drittel der deutschen Bevölkerung fühlt sich durch Schienenverkehrslärm gestört oder belästigt." Rund eine Million Menschen ist demnach in deutschen Ballungsräumen entlang von Gleisen und an Bahnlinien mit einem Verkehrsaufkommen von mindestens 30 000 Zügen pro Jahr ganztags Pegeln von mehr als 65 Dezibel ausgesetzt. Nachts seien über zwei Millionen Menschen mit Pegeln von mehr als 55 Dezibel belastet. So viel geht etwa von einem Kühlschrank aus.');
-//   $('#btn-fill-with-content').hide();
-//   generateIdforForm();
-//   $('#metadata-author').val("Washington Irving");
-//   $('#metadata-summary').text("Auf der wichtigen Pendlerstrecke Berlin-Hamburg will die Deutsche Bahn ab Dezember 2021 ICEs im Halbstundentakt fahren lassen.");
-//   $('#metadata-thumbnail').val("/images/news/20220612_uber-bahnlarm-und-wie-er-01-th.jpg");
-  
-//   $('textarea').keydown();
-// }

@@ -18,11 +18,12 @@ exports.postScore = (req, res) => {
   con.connect(function(err) {
     if (err) throw err;
 
-    let sql = `INSERT INTO snake_highscore (Player, Score, Speed)
-               VALUES('` + data.player + `', '` + data.score + `', '` + data.speed +`');`;     
-    con.query(sql, function (err, result) {
+    let sqlQuery = 'INSERT INTO snake_highscore (Player, Score, Speed) VALUES(?, ?, ?);';
+    let sqlData = [data.player, data.score, data.speed];
+               
+    con.execute(sqlQuery, sqlData, function (err, result) {
       if (err) throw err;
-      res.send("Score inserted to database");;
+      res.send("Score recorded to database");;
     });
   });
 };
@@ -33,10 +34,10 @@ exports.getScore = (req, res) => {
   con.connect(function(err) {
     if (err) throw err;
 
-    let sql = "SELECT * FROM snake_highscore ORDER BY Score DESC, Speed DESC, ID DESC LIMIT 10;";
-    con.query(sql, function (err, result) {
+    let sqlQuery = 'SELECT * FROM snake_highscore ORDER BY Score DESC, Speed DESC, ID DESC LIMIT 10;';
+    con.query(sqlQuery, function (err, result) {
       if (err) throw err;
       res.json(result);
     });
   });
-}
+};
