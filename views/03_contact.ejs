@@ -10,7 +10,6 @@
         </div>
       </div>
 
-      <!-- <form id = "contact" name = "contact" action = "/contact/submit/" onsubmit = "return validateForm(event)" method = "POST"> -->
       <form id = "contactform" name = "contactform">
           <div id = "contactname" class = "form-group row">
             <label for = "contactname" class = "col-sm-2 col-form-label">Name</label>
@@ -47,28 +46,19 @@
           <div class = "form-group row justify-content-end">
             <div class = "col-4 col-sm-3 col-lg-2">
               <button id = "contactsubmit" type = "button" form = "contact" value = "submit" class = "btn btn-simple btn-block">Send</button>
-              <!-- <button type = "submit" form = "contact" value = "submit" class = "btn btn-simple btn-block">Send</button> -->
             </div>
             <div class = "input-feedback d-none">Feedback</div>
-          </div>
-          
+          </div>          
       </form>
 
       <div id = "submit-response" class = "d-none">
         <h2>Thank you for sending your mail.</h2>
         <p><a href = "/contact/">Back</a></p>
       </div>
-      <!-- <button id = "contactswitch" type = "button" class = "btn btn-simple btn-block">Switch</button> -->
     </div>
 
     <script src = "/js/03_contact.js"></script>
 
-
-    <script>
-      
-
-      
-    </script>
 <%- include('00b_footer.ejs') %>
 <%# </html> %>
 

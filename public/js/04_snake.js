@@ -114,30 +114,32 @@ function snakeGame() {
   const handleKeyPress = (k) => {
     snake.currentDirection = [...snake.direction]; // Stores the last direction before the keystrok
 
-    if (k.code === 'KeyW' || k.code === 'ArrowUp'){ // move up
-      k.preventDefault(); // to prevent browser scrolling
-      snake.direction = [0, -1];
-    }
-    if (k.code === 'KeyS' || k.code === 'ArrowDown'){ // move down
-      k.preventDefault();
-      snake.direction = [0, 1];
-    }
-    if (k.code === 'KeyA' || k.code === 'ArrowLeft'){ // move left
-      k.preventDefault();
-      snake.direction = [-1, 0];
-    }
-    if (k.code === 'KeyD' || k.code === 'ArrowRight'){ // move right
-      k.preventDefault();
-      snake.direction = [1, 0];
-    }
-    if (k.code === 'KeyG'){ // grow snake - for test purposes
-      snake.growth = 3;
-    }
-    if (k.code === 'KeyF'){ // place new apple - for test purposes
-      apple.newApple();
-    }
-    if (k.code === 'Escape'){ // place new apple - for test purposes
-      gameOver("Manual abort");
+    switch (k.code){
+      case 'KeyW':
+        k.preventDefault(); // to prevent browser scrolling
+        snake.direction = [0, -1];
+        break;
+      case 'KeyS':
+        k.preventDefault();
+        snake.direction = [0, 1];
+        break;
+      case 'KeyA':
+        k.preventDefault();
+        snake.direction = [-1, 0];
+        break;
+      case 'KeyD':
+        k.preventDefault();
+        snake.direction = [1, 0];
+        break;
+      case 'KeyG':
+        snake.growth = 3;
+        break;
+      case 'KeyF':
+        apple.newApple();
+        break;
+      case 'Escape':
+        gameOver("Manual abort");
+        break;
     }
 
     // If snake turns, turn immediately, to assist zig-zag movements

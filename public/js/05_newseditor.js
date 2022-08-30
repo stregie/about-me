@@ -30,8 +30,9 @@ function addField(fieldtype){
 
   if (fieldtype === "image"){
     $newField.find('.refresh-btn').click(function(){
-      let imgpath = $(this).parent().parent().find('.image-input').val();
-      $(this).parent().parent().parent().parent().parent().parent().find('img').attr('src', imgpath);
+      let imgpath = $(this).closest('div.input-group').find('.image-input').val();
+      // $(this).parent().parent().parent().parent().parent().parent().find('img').attr('src', imgpath);
+      $(this).closest('div.article-input-group').find('img').attr('src', imgpath);
     });
   }
   $newField.appendTo($articleFields);

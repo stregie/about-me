@@ -19,7 +19,7 @@ exports.contact = (req, res) => {
   res.render('03_contact.ejs', null);
 };
 
-exports.contactGet = (req, res) => {
+exports.contactSubmit = (req, res) => {
   let mongodat = {
     name: req.body.contactname,
     mail: req.body.contactmail,

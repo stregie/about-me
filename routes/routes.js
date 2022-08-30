@@ -16,7 +16,7 @@ router.post('/snake/postScore/', snake.postScore);
 router.get('/snake/getScore/', snake.getScore);
 
 router.get('/contact/', handlers.contact);
-router.post('/contact/submit/', handlers.contactGet);
+router.post('/contact/submit/', handlers.contactSubmit);
 // router.get('/contact/', handlers.contactSendNotification);
 
 router.get('/news/', news.articleList);
