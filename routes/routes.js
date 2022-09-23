@@ -4,20 +4,20 @@ const router = express.Router();
 const ejs = require ('ejs');
 
 
-const handlers = require('../handlers/01_handlers.js');
-const snake = require('../handlers/04_snake.js');
-const news = require('../handlers/05_news.js');
-const fileuploader = require('../handlers/06_fileuploader.js');
+const controllers = require('../controllers/01_general.js');
+const snake = require('../controllers/04_snake.js');
+const news = require('../controllers/05_news.js');
+const fileuploader = require('../controllers/06_fileuploader.js');
+const react = require('../controllers/07_react.js');
 
-router.get('/', handlers.main);
-router.get('/aboutme/', handlers.aboutme);
+router.get('/', controllers.main);
+router.get('/aboutme/', controllers.aboutme);
 router.get('/snake/', snake.game);
 router.post('/snake/postScore/', snake.postScore);
 router.get('/snake/getScore/', snake.getScore);
 
-router.get('/contact/', handlers.contact);
-router.post('/contact/submit/', handlers.contactSubmit);
-// router.get('/contact/', handlers.contactSendNotification);
+router.get('/contact/', controllers.contact);
+router.post('/contact/submit/', controllers.contactSubmit);
 
 router.get('/news/', news.articleList);
 router.get('/news/article/:articleid', news.articleDisplay);
@@ -34,6 +34,8 @@ router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploade
 router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
 
-router.get('/mongotest/', handlers.mongotest);
+// router.get('/react/', react.main);
+
+router.get('/mongotest/', controllers.mongotest);
 
 module.exports = router;

@@ -26,8 +26,9 @@
   /*--ownColor4: #3a7d44ff;*/
   /*--ownColor5: #27542dff;*/
   /*--ownColor6: #1a381eff;*/
-  /*--textColor1: #000000;  */
+  /*--textColor1: #000000; */
 }
+
 
 html {
   background-color: var(--color-bg-4);
@@ -40,9 +41,8 @@ body {
 }
 
 h1 {
-  margin-top: 20px;
   border-bottom: 3px solid var(--color-border-1);
-
+  margin-top: 20px;
   font-weight:  bold;
   letter-spacing:  2px;
   text-align: center;
@@ -102,20 +102,24 @@ a:hover {
 .dropdown-item:hover {
   background: white;
 }
+
 .nav-link:focus,
 .dropdown-item:focus {
   background: white;
   color: black;
 }
+
 .dropdown-menu {
   background:  var(--color-bg-4);    
 }
+
 @media(min-width: 768px) {
   .dropdown-menu {
     border-radius: 10px;
     border:  2px solid var(--color-border-2);
   }  
 }
+
 @media(max-width: 767px) {
   .dropdown-menu {
     border: none;   
@@ -132,20 +136,7 @@ a:hover {
   border-radius: 10px;
 }
 
-
-
-/*--------------------------------------*/
-/*---ITT TART AZ ELLENŐRZÉS-------------*/
-/*--------------------------------------*/
-/*forms*/
-
-input.form-control:focus,
-textarea.form-control:focus {
-  border-color: var(--color-border-1);
-  box-shadow: 0 0 0 .2rem var(--color-border-1);
-  border-radius:  0.25em;
-}
-
+/* Footer */
 footer {
   background-color: var(--color-bg-4);
   border-top: 10px solid var(--color-border-2);
@@ -153,25 +144,31 @@ footer {
   padding:  40px;
   line-height:  5px;
   text-align: center;
-
-
 }
 
+/* Forms */
+input.form-control:focus,
+textarea.form-control:focus {
+  border-color: var(--color-border-1);
+  box-shadow: 0 0 0 .2rem var(--color-border-1);
+  border-radius:  0.25em;
+}
+
+/* Snake */
 #snake-canvas {
   display: block;
   margin: auto;  
 }
 
-/* main page */
-
-
-
+/* File-uploader */
 table {
   background: var(--color-bg-1);
 }
+
 thead tr:first-child {
   background: var(--color-bg-4);
 }
+
 thead tr:nth-child(2) {
   background: var(--color-bg-3);
 }
