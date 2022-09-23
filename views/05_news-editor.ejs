@@ -2,23 +2,12 @@
 <%- include('00a_header.ejs') %>
     <link rel = "stylesheet" href = "/css/05_news.css">    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Icons from https://fonts.google.com/icons?icon.query=arrow&icon.set=Material+Icons -->
+    <!-- Icons from https://fonts.google.com/icons?icon.set=Material+Symbols&icon.style=Outlined -->
 
     <script src="/js/jquery-autoresize.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
-    <style>
 
-    </style>
 
-    <script>
-      // $(document).ready(function(){
-      //   $('#firstspan').css('background', 'red');
-      //   $('#firstspan').click(function(){
-      //      console.log("click");
-      //      $(this).closest('textarea').focus();
-      //   });
-      // });
-    </script>
 
     <div id = "news-editor-templates" class = "d-none">
       <div id = "heading-template" class = "article-input-group" element = "heading">
@@ -79,7 +68,7 @@
               <div class="input-group mb-2">
                 <input type = "text" class="form-control image-input" value = "/images/news/20220623_zug-um-zug-deutsche-bahn-01.jpg">
                 <div class="input-group-prepend">
-                  <button type = "button" class="input-group-text btn btn-simple refresh-btn">Refresh</button>
+                  <button type = "button" class="input-group-text btn btn-simple refresh-btn">Load image</button>
                 </div>
               </div>
             </div>
@@ -97,40 +86,76 @@
           <span class = "drag-indicator-icon material-symbols-outlined">unfold_more</span>
           <span class = "delete-icon material-symbols-outlined" >delete</span>
         </div>
-      </div>
-      
+      </div>      
     </div>
 
     <div class = "container">
-      <h1>news article editor</h1>
-      <div class = "col-sm-12 col-md-10 offset-md-1">
-        <!-- <button id = "btn-fill-with-content" class = "btn btn-simple" onclick = "fillWithContent()">Fill with predefined content</button> -->
-                
-        <div id = "article-fields">
-        </div>
+      <div class = "col-sm-12 col-md-10 offset-md-1">                       
+        <div id = "article-fields"></div>
+      </div>
+    </div>
 
-        <div id = "news-add-field" class="btn-group" role="group">
-          <button  type="button" class="btn btn-simple dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            Add more content
-          </button>
-          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" onclick = "addField('heading')">Heading</a>
-            <a class="dropdown-item" onclick = "addField('subheading')">Subheading</a>
-            <a class="dropdown-item" onclick = "addField('lead-paragraph')">Lead paragraph</a>
-            <a class="dropdown-item" onclick = "addField('paragraph')">Paragraph</a>
-            <a class="dropdown-item" onclick = "addField('quote')">Quote</a>
-            <a class="dropdown-item" onclick = "addField('image')">Image</a>
-            <a class="dropdown-item" onclick = "addField('figcaption')">Image caption</a>
-            <div class="dropdown-divider"></div>
-            <span class="dropdown-item-text"><b>Once added you can grab and move them elsewhere</b></span>
+    <div class = "container">
+      <div id = "editor-tools" class = "col-sm-12 col-md-10 offset-md-1">
+        <div class = "row editor-buttons">
+          <div class = "editor-button-container col-sm-3">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('heading')">
+              <span class = "material-symbols-outlined">title</span>
+              <div>Heading</div>
+            </button>
+          </div>
+
+          <div class = "editor-button-container col-sm-3">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('subheading')">
+              <span class = "material-symbols-outlined" style = "font-size: 1.8rem">title</span>
+              <div>Subhead</div>
+            </button>
+          </div>
+
+          <div class = "editor-button-container col-sm-3">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('lead-paragraph')">
+              <span class = "material-symbols-outlined" style = "font-weight: bold">notes</span>
+              <div>Lead paragraph</div>
+            </button>
+          </div>
+
+          <div class = "editor-button-container col-sm-3">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('paragraph')">
+              <span class = "material-symbols-outlined">format_align_left</span>
+              <div>Paragraph</div>
+            </button>
           </div>
         </div>
+
+        <div class = "row editor-buttons">
+          <div class = "editor-button-container col-sm-4">
+            <button type = "button" id = "image-button" class = "btn btn-simple" onclick = "addField('image')">
+              <span class = "material-symbols-outlined">Photo</span>
+              <div>Image</div>
+            </button>
+          </div>
+
+          <div class = "editor-button-container col-sm-4">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('figcaption')">
+              <span class = "material-symbols-outlined" style = "border-bottom: 4px solid">image</span>
+              <div>Image caption</div>
+            </button>
+          </div>
+
+          <div class = "editor-button-container col-sm-4">
+            <button type = "button" class = "btn btn-simple" onclick = "addField('quote')">
+              <span class = "material-symbols-outlined">align_horizontal_left</span>
+              <div>Quote</div>
+            </button>
+          </div>
+        </div>
+
+
 
         <form id = "metadata">
           <div class = "form-group row">
             <div class = "col-sm-2 col-form-label">
-              <label for = "metadata-id">ID</label><!-- <span class="material-symbols-outlined">double_arrow</span> -->
-              <!-- <span id = "generate">generate</span> -->
+              <label for = "metadata-id">ID</label>
             </div>
             <div class = "col-sm-10">
                <div class="input-group mb-2">
@@ -139,8 +164,7 @@
                   <button type = "button" class="input-group-text btn btn-simple" onclick = "generateIdforForm()">Generate</button>
                 </div>
               </div>
-            </div>
-            
+            </div>            
           </div>
 
           <div class = "form-group row">
@@ -160,7 +184,7 @@
           <div class = "form-group row">
             <label for = "metadata-thumbnail" class="col-sm-2 col-form-label">Thumbnail</label>
             <div class = "col-sm-10">
-              <input id = "metadata-thumbnail" type = "text" class="form-control" value = "/images/news/">
+              <input id = "metadata-thumbnail" type = "text" class="form-control" value = "/images/news/thumbnails/">
             </div>
           </div>
         </form>
@@ -194,9 +218,7 @@
             </div>
           </div>
         </div>
-
       </div>
-      <br>
     </div>
 
     <script>
@@ -217,6 +239,7 @@
         });
       <% } %>
     </script>
+
     <script src="/js/05_newseditor.js"></script>
     
 <%- include('00b_footer.ejs') %>
