@@ -10,7 +10,20 @@ exports.fileuploader = (req, res) => {
 };
 
 exports.fileuploaderGetUploadedFiles = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'tmp');
+  // let dirpath = path.join(__dirname, '..', 'tmp');
+
+  let dirpath = "";
+  switch (process.env.NODE_ENV){
+    case "development":
+      console.log("Environment: development");
+      dirpath = path.join(__dirname, '..', 'tmp');
+      break;
+    case "production":
+      console.log("Environment: production");
+      dirpath = '/tmp';
+      break;
+  }
+
   let filelist = [];
   fs.readdir(dirpath, (err, files) => {
     files.forEach((file, index) => {
@@ -23,7 +36,17 @@ exports.fileuploaderGetUploadedFiles = (req, res) => {
 };
 
 exports.fileuploaderPostFiles = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'tmp');
+  let dirpath = "";
+  switch (process.env.NODE_ENV){
+    case "development":
+      console.log("Environment: development");
+      dirpath = path.join(__dirname, '..', 'tmp');
+      break;
+    case "production":
+      console.log("Environment: production");
+      dirpath = '/tmp';
+      break;
+  }
   
   const form = new formidable.IncomingForm();
   form.multiples = true;

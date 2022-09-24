@@ -32,5 +32,5 @@ app.use('/', routes);
 // Server
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  console.log(`Server listening on ${PORT}, Environment: ${process.env.NODE_ENV}`);
 });
