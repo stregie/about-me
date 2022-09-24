@@ -10,7 +10,7 @@ exports.fileuploader = (req, res) => {
 };
 
 exports.fileuploaderGetUploadedFiles = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'uploaded_files');
+  let dirpath = path.join(__dirname, '..', 'tmp');
   let filelist = [];
   fs.readdir(dirpath, (err, files) => {
     files.forEach((file, index) => {
@@ -22,25 +22,8 @@ exports.fileuploaderGetUploadedFiles = (req, res) => {
   });
 };
 
-// exports.fileuploaderPostFiles = (req, res) => {
-//   let dirpath = path.join(__dirname, '..', 'uploaded_files');
-//   
-//   const form = new formidable.IncomingForm();
-//   form.multiples = true;
-//   form.maxFileSize = 50 * 1024 * 1024; // FieldsSize? Unsure if it is the right property
-//   form.uploadDir = dirpath;
-// 
-//   form.parse(req);
-// 
-//   form.on('fileBegin', function (name, file) {
-// 
-//   res.send("ok");
-// 
-// 
-// }
-
 exports.fileuploaderPostFiles = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'uploaded_files');
+  let dirpath = path.join(__dirname, '..', 'tmp');
   
   const form = new formidable.IncomingForm();
   form.multiples = true;
@@ -61,8 +44,8 @@ exports.fileuploaderPostFiles = (req, res) => {
 };
 
 exports.fileuploaderDownload = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'uploaded_files');
-  console.log(req.query.file);
+  let dirpath = path.join(__dirname, '..', 'tmp');
+  // console.log(req.query.file);
   let filepath = dirpath + "/" + req.query.file;
   res.download(filepath);
 };
