@@ -39,8 +39,8 @@ function displaySelectedFiles(){
   for (let i = 0; i < selectedFiles.length; i++){
     totalSize += selectedFiles[i].size;
   }        
-  if (totalSize > 10 * 2 ** 10){
-    alert("Upload size exceeds the 10 KB limit!");
+  if (totalSize > 5 * 2 ** 20){
+    alert("Upload size exceeds the 5 MB limit!"); // ez kell ide?
   }
 
   let $selectedFiles = "";
@@ -78,8 +78,8 @@ function uploadFiles(){
     totalSize += selectedFiles[i].size;
   }
   
-  if (totalSize > 10 * 2 ** 10){
-    alert("Upload size exceeds the 10 KB limit! You cannot upload the files.");
+  if (totalSize > 5 * 2 ** 20){
+    alert("Upload size exceeds the 5 MB limit! You cannot upload the files.");
     return;
   }
 

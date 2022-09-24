@@ -8,6 +8,7 @@ $(document).ready(function(){
   $('textarea').keydown();
 });
 
+// To add a blank heading, paragraph, image etc to the article
 function addField(fieldtype){
   let $articleFields = $('#article-fields');
   let $template = $('#' + fieldtype + '-template');

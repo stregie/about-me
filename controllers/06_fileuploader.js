@@ -22,12 +22,6 @@ exports.fileuploaderGetUploadedFiles = (req, res) => {
   });
 };
 
-exports.fileuploaderPostFiles = (req, res) => {
-  res.send("ok");
-
-
-}
-
 // exports.fileuploaderPostFiles = (req, res) => {
 //   let dirpath = path.join(__dirname, '..', 'uploaded_files');
 //   
@@ -38,16 +32,33 @@ exports.fileuploaderPostFiles = (req, res) => {
 // 
 //   form.parse(req);
 // 
-//   form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
-//     file.filepath = path.join(dirpath, file.originalFilename);
-//   });
+//   form.on('fileBegin', function (name, file) {
 // 
-//   form.on('file', function (name, file) { // called when file uploaded and saved.   
-//     console.log('Uploaded ' + file.originalFilename);      
-//   });
+//   res.send("ok");
 // 
-//   res.send("Files successfully uploaded!");
-// };
+// 
+// }
+
+exports.fileuploaderPostFiles = (req, res) => {
+  let dirpath = path.join(__dirname, '..', 'uploaded_files');
+  
+  const form = new formidable.IncomingForm();
+  form.multiples = true;
+  form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
+  form.uploadDir = dirpath;
+
+  form.parse(req);
+
+  form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
+    file.filepath = path.join(dirpath, file.originalFilename);
+  });
+
+  form.on('file', function (name, file) { // called when file uploaded and saved.   
+    console.log('Uploaded ' + file.originalFilename);      
+  });
+
+  res.send("Files successfully uploaded!");
+};
 
 exports.fileuploaderDownload = (req, res) => {
   let dirpath = path.join(__dirname, '..', 'uploaded_files');
