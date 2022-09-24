@@ -4,8 +4,8 @@
 
     <div class = "container">
       <h1>file uploader</h1>
-      <p>A simple file uploader. Files can be either browsed or dragged and dropped. Files are posted via an  XMLHttpRequest. The progress is shown as percentage and graphically in the box. The server side saves the files with the fs module.</p>
-      <p><strong>Maximum size for each upload: 10 KB.</strong> (due to limitations of heroku)</p>
+      <p>A simple <strong>file uploader</strong>. Files can be either <strong>browsed</strong> or <strong>dragged and dropped</strong>. Files are posted via an  <strong>XMLHttpRequest</strong>. The <strong>progress</strong> is shown as percentage and graphically in the box. The server side saves the files with the <strong>fs module</strong>.</p>
+      <p><strong>Maximum size for each upload: 5 MB.</strong> The files are <strong>not stored on a permanent drive</strong>, therefore they can disappear easily. A solution for this would be uploading the files to an <strong>AWS S3 storage</strong>, which will be implemented soon.</p>
 
       <div class = "col-md-8 offset-md-2">
         <form id = "fileuploader-dropzone" class = "bordered-box" enctype = "multipart/form-data" method = "POST" onsubmit = ""> <!-- action = "/fileuploader/uploadfiles" -->
@@ -36,11 +36,12 @@
           </tr>
         </thead>
         <tbody>
-          
+
         </tbody>
       </table>
     </div>
 
     <script src = "/js/06_fileuploader.js"></script>
+
 <%- include('00b_footer.ejs') %>
 <%# </html> %>
