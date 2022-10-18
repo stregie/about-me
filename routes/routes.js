@@ -1,4 +1,4 @@
-	const express = require ('express');
+const express = require ('express');
 const router = express.Router();
 
 const ejs = require ('ejs');
@@ -8,7 +8,7 @@ const controllers = require('../controllers/01_general.js');
 const snake = require('../controllers/04_snake.js');
 const news = require('../controllers/05_news.js');
 const fileuploader = require('../controllers/06_fileuploader.js');
-// const react = require('../controllers/07_react.js');
+const react = require('../controllers/07_react.js');
 
 router.get('/', controllers.main);
 router.get('/aboutme/', controllers.aboutme);
@@ -34,7 +34,10 @@ router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploade
 router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
 
-// router.get('/react/', react.main);
+router.get('/react/*', react.main);
+// router.get('/react/*', react.main);
+router.get('/reactapi/getfilelist/', react.fileList);
+router.get('/reactapi/images/:album/:image', react.sendImage);
 
 router.get('/mongotest/', controllers.mongotest);
 

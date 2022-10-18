@@ -1,4 +1,4 @@
-/*https://codeguide.co/#css-syntax*/
+/* https://codeguide.co/#css-syntax */
 
 :root {
   /* universal colors */
@@ -147,6 +147,7 @@ footer {
 }
 
 /* Forms */
+option.form-control:focus,
 input.form-control:focus,
 textarea.form-control:focus {
   border-color: var(--color-border-1);
