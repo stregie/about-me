@@ -3,7 +3,6 @@ const router = express.Router();
 
 const ejs = require ('ejs');
 
-
 const controllers = require('../controllers/01_general.js');
 const snake = require('../controllers/04_snake.js');
 const news = require('../controllers/05_news.js');
@@ -35,7 +34,6 @@ router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
 
 router.get('/react/*', react.main);
-// router.get('/react/*', react.main);
 router.get('/reactapi/getfilelist/', react.fileList);
 router.get('/reactapi/images/:album/:image', react.sendImage);
 

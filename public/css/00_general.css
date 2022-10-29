@@ -136,6 +136,35 @@ a:hover {
   border-radius: 10px;
 }
 
+.message-display {
+    background: var(--color-bg-3);
+    border-radius: 10px;
+}
+@media (min-width: 992px) {
+  .message-display {
+    padding: 110px 100px 110px 100px;
+    margin: 100px 0px 112px 0px;
+  }
+}
+@media (min-width: 576px) and (max-width: 992px) {
+  .message-display {
+    /*height: 364px;*/
+    padding: 80px 50px 50px 50px;
+    margin: 120px 0px 120px 0px;
+  }
+}
+@media (max-width: 576px) {
+  .message-display {
+    padding: 30px;
+    margin-bottom: 15px;
+  }  
+}
+.message-display p {
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 /* Footer */
 footer {
   background-color: var(--color-bg-4);

@@ -25,9 +25,9 @@ const routes = require('./routes/routes');
 app.use('/', routes);
 
 // 404 page
-// app.use(function (req, res, next) {
-//   res.status(404).render('00-404', null);
-// });
+app.use(function (req, res, next) {
+  res.status(404).render('00c_404', null);
+});
 
 // Server
 const PORT = process.env.PORT;
