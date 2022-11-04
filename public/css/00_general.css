@@ -110,7 +110,8 @@ a:hover {
 }
 
 .dropdown-menu {
-  background:  var(--color-bg-4);    
+  background:  var(--color-bg-4);
+  z-index: 120; 
 }
 
 @media(min-width: 768px) {
@@ -128,6 +129,7 @@ a:hover {
 
 #content {
   padding-top: 89px;
+  z-index: 100;
 }
 
 .bordered-box {
