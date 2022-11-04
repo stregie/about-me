@@ -17,9 +17,16 @@ exports.fileList = (req, res) => {
       return ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.webp';
     });
     images.forEach((imgfile, index) => {
-      filelist[index] = {filename: imgfile};
       let stats = fs.statSync(dirpath + "/" + imgfile);
-      filelist[index].filesize = stats.size;
+      filelist[index] = {
+        fileindex: index,
+        filename: imgfile,
+        filesize: stats.size
+      };
+      // filelist[index].filesize = stats.size;
+      // filelist[index] = {filename: imgfile};
+      // let stats = fs.statSync(dirpath + "/" + imgfile);
+      // filelist[index].filesize = stats.size;
     });
     res.json(filelist);
   });
@@ -28,7 +35,6 @@ exports.fileList = (req, res) => {
 exports.sendImage = (req, res) => {
   let album = req.params.album;
   let imgname = req.params.image;
-  // console.log(process.env.PUBLIC_URL)
 
   let sendFileOptions = {
     root: path.join(__dirname, '..', '/public/images/', album)
