@@ -6,6 +6,7 @@ $(document).ready(function(){
   $('#fileuploader-dropzone input').on('change', displaySelectedFiles);
   $('#submit-button').click(uploadFiles);
   $('#test-button').click(testButton);
+  $('#refresh-button').click(displayFilesOnServer);
   displaySelectedFiles();
   displayFilesOnServer();
 });

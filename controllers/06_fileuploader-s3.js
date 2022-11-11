@@ -5,6 +5,26 @@ const path = require('path');
 
 const s3 = new AWS.S3;
 
+// Feladat:
+// - res.send-et csak akkor küldje el, ha az összes aws feltöltés megtörtént, hogy a displayFiles ne egy korábbi állapotot mutasson
+//   Pl promise-okkal.
+// - res.send("not ok") -t is lekezelni valahogy, hogy multiple upload esetén is történjen valami, ha csak egy is hibás.
+// - feltölteni cyclic-re és letesztelni
+// - Feltöltés után a file selected to upload ürüljön ki
+// - Selected file-t lehessen törölni
+
+var tmpDirPath = "";
+switch (process.env.NODE_ENV){
+  case "development":
+    console.log("Environment: development");
+    tmpDirPath = path.join(__dirname, '..', 'tmp');
+    break;
+  case "production":
+    console.log("Environment: production");
+    tmpDirPath = '/tmp';
+    break;
+}
+
 exports.main = (req, res) => {
   res.render('06_fileuploader-s3.ejs', null);
 };
@@ -45,7 +65,7 @@ exports.download = (req, res) => {
   let awsKey = "about-me/" + req.query.folder + "/" + fileName;
   console.log(awsKey);
 
-  const tmpPath = path.join(__dirname, '..', 'tmp', fileName);
+  const tmpFilePath = path.join(tmpDirPath, fileName);
   const params = {
     Bucket: process.env.AWS_BUCKET,
     Key: awsKey
@@ -55,13 +75,13 @@ exports.download = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      fs.writeFileSync(tmpPath, data.Body);
+      fs.writeFileSync(tmpFilePath, data.Body);
 
-      res.download(tmpPath, (err) => {
+      res.download(tmpFilePath, (err) => {
         if (err) {
           console.log(err);
         } else {
-          fs.unlink(tmpPath, (err) => {
+          fs.unlink(tmpFilePath, (err) => {
             if (err) console.log(err);
           });
           // console.log('temporary file deleted');
@@ -72,18 +92,17 @@ exports.download = (req, res) => {
 };
 
 exports.upload = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'tmp');
   let awsFolder = "fileuploader-s3";
   
   const form = new formidable.IncomingForm();
   form.multiples = true;
   form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
-  form.uploadDir = dirpath;
+  form.uploadDir = tmpDirPath;
 
   form.parse(req);
 
   form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
-    file.filepath = path.join(dirpath, file.originalFilename);
+    file.filepath = path.join(tmpDirPath, file.originalFilename);
   });
 
   form.on('file', function (name, file) { // called when file uploaded and saved.   
@@ -112,11 +131,7 @@ exports.upload = (req, res) => {
   res.send("Files uploaded successfully.");
 };
 
-// Feladat:
-// - res.send-et csak akkor küldje el, ha az összes aws feltöltés megtörtént, hogy a displayFiles ne egy korábbi állapotot mutasson
-//   Pl promise-okkal.
-// - res.send("not ok") -t is lekezelni valahogy, hogy multiple upload esetén is történjen valami, ha csak egy is hibás.
-// - feltölteni cyclic-re és letesztelni
+
   
 
 
