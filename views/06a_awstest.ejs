@@ -1,0 +1,23 @@
+<%# <html> %>
+<%- include('00a_header.ejs') %>
+    <link rel = "stylesheet" href = "/css/01_main.css">    
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1249.0.min.js"></script>
+
+    <div class="container">
+      <h1>Aws bucket test</h1>
+      <ul>
+        <li><a href = "/fileuploader-s3/awstest/download">awstest/download</a></li>
+        <!-- <li><a href = "/fileuploader-s3/awstest/download?file=item.txt">awstest/download?file=item.txt</a></li> -->
+        <li><a href = "/fileuploader-s3/awstest/download?file=item.txt&path=about-me/aws-test/">awstest/download?file=item.txt&path=about-me/awstest</a></li>
+        <li><a href = "/fileuploader-s3/awstest/download?file=item3.wtf&path=about-me/aws-test/">awstest/download?file=item3.wtf&path=about-me/awstest</a></li>
+        <li><a href = "https://cyclic-bandicoot-garters-eu-central-1.s3.eu-central-1.amazonaws.com/about-me/aws-test/item.txt">hotlink</a></li>
+        <li><a href = "https://s3.eu-central-1.amazonaws.com/cyclic-bandicoot-garters-eu-central-1/about-me/aws-test/item.txt">hotlink2</a></li>
+        <li><a href = "/fileuploader-s3/awstest/upload/">Upload test</a></li>
+        <li><a href = "/fileuploader-s3/awstest/filelist/">Get File list</a></li>
+      </ul>
+    </div>
+    <script>
+
+    </script>
+<%- include('00b_footer.ejs') %>
+<%# </html> %>

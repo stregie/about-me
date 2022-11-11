@@ -1,9 +1,6 @@
-const AWS = require('aws-sdk');
 const fs = require('fs');
 const formidable = require('formidable');
 const path = require('path');
-
-const s3 = new AWS.S3;
 
 exports.fileuploader = (req, res) => {
 	res.render('06_fileuploader.ejs', null);
