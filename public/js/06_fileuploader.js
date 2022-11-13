@@ -39,9 +39,9 @@ function displaySelectedFiles(){
   for (let i = 0; i < selectedFiles.length; i++){
     totalSize += selectedFiles[i].size;
   }        
-  if (totalSize > 5 * 2 ** 20){
-    alert("Upload size exceeds the 5 MB limit!"); // ez kell ide?
-  }
+  // if (totalSize > 5 * 2 ** 20){
+  //   alert("Upload size exceeds the 5 MB limit!"); // ez kell ide?
+  // }
 
   let $selectedFiles = "";
   for (let i = 0; i < selectedFiles.length - 1; i++){
@@ -78,10 +78,10 @@ function uploadFiles(){
     totalSize += selectedFiles[i].size;
   }
   
-  if (totalSize > 5 * 2 ** 20){
-    alert("Upload size exceeds the 5 MB limit! You cannot upload the files.");
-    return;
-  }
+  // if (totalSize > 5 * 2 ** 20){
+  //   alert("Upload size exceeds the 5 MB limit! You cannot upload the files.");
+  //   return;
+  // }
 
   let data = new FormData();
   for (let i = 0; i < selectedFiles.length; i++){

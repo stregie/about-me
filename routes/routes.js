@@ -38,11 +38,13 @@ router.get('/fileuploader-s3/', fileuploaderS3.main);
 router.get('/fileuploader-s3/filelist', fileuploaderS3.fileList);
 router.get('/fileuploader-s3/download', fileuploaderS3.download);
 router.post('/fileuploader-s3/upload', fileuploaderS3.upload);
+router.post('/fileuploader-s3/upload2', fileuploaderS3.upload2);
 
 router.get('/fileuploader-s3/awstest/', fileuploaderS3.awsTest);
 router.get('/fileuploader-s3/awstest/download', fileuploaderS3.awsTestDownload);
 router.post('/fileuploader-s3/awstest/upload', fileuploaderS3.awsTestUpload);
 router.get('/fileuploader-s3/awstest/filelist', fileuploaderS3.awsTestFileList);
+router.get('/fileuploader-s3/awstest/uploadstream', fileuploaderS3.awsTestStream);
 
 // router.get('/fileuploader-s3'), fileuploaderS3
 

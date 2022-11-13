@@ -5,6 +5,7 @@ $(document).ready(function(){
   $('#fileuploader-dropzone label').on('drop', dropHandler);
   $('#fileuploader-dropzone input').on('change', displaySelectedFiles);
   $('#submit-button').click(uploadFiles);
+  $('#submit-button2').click(uploadFiles2);
   $('#test-button').click(testButton);
   $('#refresh-button').click(displayFilesOnServer);
   displaySelectedFiles();
@@ -92,6 +93,48 @@ function uploadFiles(){
 
   let request = new XMLHttpRequest();
   request.open('POST', '/fileuploader-s3/upload/'); 
+
+  request.upload.addEventListener('progress', function(e) {
+    let percent_completed = Math.floor((e.loaded / e.total) * 100);
+    $('#fileuploader-dropzone label').text(percent_completed + "% completed");
+    $('#progress-display').css("height", percent_completed + "%");
+  });
+
+  request.addEventListener('load', function(e) {
+    console.log(request.status);
+    console.log(request.response);
+    $('#fileuploader-dropzone label').text(request.response);
+    $('#progress-display').css("height", 0 + "%");
+    displayFilesOnServer();          
+  });
+
+  request.send(data);
+};
+
+function uploadFiles2(){
+  let selectedFiles = $('#fileuploader-dropzone input').prop('files');
+  if (selectedFiles.length === 0){
+    alert("Please select the files to upload.")
+    return;
+  }
+
+  let totalSize = 0;
+  for (let i = 0; i < selectedFiles.length; i++){
+    totalSize += selectedFiles[i].size;
+  }
+  
+  if (totalSize > 5 * 2 ** 20){
+    alert("Upload size exceeds the 5 MB limit! You cannot upload the files.");
+    return;
+  }
+
+  let data = new FormData();
+  for (let i = 0; i < selectedFiles.length; i++){
+    data.append('file', document.querySelector('#fileuploader-dropzone input').files[i]);
+  }
+
+  let request = new XMLHttpRequest();
+  request.open('POST', '/fileuploader-s3/upload2/'); 
 
   request.upload.addEventListener('progress', function(e) {
     let percent_completed = Math.floor((e.loaded / e.total) * 100);

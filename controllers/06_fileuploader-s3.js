@@ -90,6 +90,19 @@ exports.download = (req, res) => {
     }
   });
 };
+exports.upload2 = (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.multiples = true;
+  form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
+  form.uploadDir = tmpDirPath;
+
+  form.parse(req, (err, fields, files) => {
+    console.log(err);
+    console.log(fields);
+    console.log(files);
+  })
+  res.send("ok");
+}
 
 exports.upload = (req, res) => {
   let awsFolder = "fileuploader-s3";
@@ -101,7 +114,8 @@ exports.upload = (req, res) => {
 
   form.parse(req);
 
-  form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
+  form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved
+    console.log("Form.on callback");
     file.filepath = path.join(tmpDirPath, file.originalFilename);
   });
 
@@ -131,17 +145,11 @@ exports.upload = (req, res) => {
   res.send("Files uploaded successfully.");
 };
 
-
-  
-
-
-
-// https://medium.com/@tojo.r/download-upload-from-to-aws-s3-using-node-js-5374895f8c30
 exports.awsTest = (req, res) => {
   res.render('06a_awstest.ejs', null);
 };
 
-exports.awsTestDownload = (req, res) => {
+exports.awsTestDownload = (req, res) => { // Works on ICE, can be deleted
   let fileName = req.query.file;
   let awsKey = req.query.path + fileName;
 
@@ -221,3 +229,26 @@ exports.awsTestFileList = (req, res) => {
 exports.fileUploaderS3 = (req, res) => {
   res.send("ok");
 };
+
+exports.awsTestStream = (req, res) => {
+  // const fileName = "COPY_Jeno Sped.png";
+  const fileName = req.query.file;
+  const filePath = path.join(__dirname, '..', 'tmp', fileName);
+  const dataStream = fs.createReadStream(filePath);
+
+  const params = {
+    Bucket: process.env.AWS_BUCKET,
+    Body: dataStream,
+    Key: "about-me/aws-test/" + fileName
+  };
+
+  return s3.putObject(params, (err, data) => {
+    if(err) {
+      console.log(err);
+      res.status(err.statusCode).send("Upload was not successful: " + err.code);
+    } else {
+      console.log("Data: ", data);
+      res.send("File uploaded successfully");
+    }
+  });
+}
