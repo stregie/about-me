@@ -30,6 +30,7 @@
     "mysql2": "^2.3.3",
     "nodemailer": "^6.7.5",
     "nodemon": "^2.0.19",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "s3-stream-upload": "^2.0.2"
   }
 }

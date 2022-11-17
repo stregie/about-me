@@ -2,6 +2,8 @@ const AWS = require('aws-sdk');
 const fs = require('fs');
 const formidable = require('formidable');
 const path = require('path');
+const UploadStream = require('s3-stream-upload');
+
 
 const s3 = new AWS.S3;
 
@@ -91,17 +93,36 @@ exports.download = (req, res) => {
   });
 };
 exports.upload2 = (req, res) => {
-  const form = new formidable.IncomingForm();
-  form.multiples = true;
-  form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
-  form.uploadDir = tmpDirPath;
+  const form = formidable({multiples: true});
+  let fileNameList = [];
+  form.parse(req);
 
-  form.parse(req, (err, fields, files) => {
+  form.onPart = (part) => {
+    let fileName = part.originalFilename;
+    let awsKey = "about-me/aws-test/" + fileName;
+    let params = {
+      Bucket: process.env.AWS_BUCKET,
+      Key: awsKey
+    };
+    fileNameList.push(fileName);
+
+    part.pipe(UploadStream(s3, params))
+      .on('error', (err) => {
+        console.log(err);
+      })
+      .on('finish', () => {
+        console.log("pipe finished");
+      });
+  };
+
+  form.on('error', (err) => {
     console.log(err);
-    console.log(fields);
-    console.log(files);
   })
-  res.send("ok");
+
+  form.once('end', () => {
+    console.log(`Formidable end. The following files were uploaded: ${fileNameList}`);
+    res.send(`The following files were uploaded: ${fileNameList}`);
+  });
 }
 
 exports.upload = (req, res) => {
