@@ -5,10 +5,10 @@
     <div class = "container">
       <h1>file uploader</h1>
       <p>A simple <strong>file uploader</strong>. Files can be either <strong>browsed</strong> or <strong>dragged and dropped</strong>. Files are posted via an  <strong>XMLHttpRequest</strong>. The <strong>progress</strong> is shown as percentage and graphically in the box. The server side saves the files with the <strong>fs module</strong>.</p>
-      <p><strong>Maximum size for each upload: 5 MB.</strong> The files are <strong>not stored on a permanent drive</strong>, therefore they can disappear easily. A solution for this would be uploading the files to an <strong>AWS S3 storage</strong>, which will be implemented soon.</p>
+      <p>Right now it does not work properly as Cyclic does not support the storage of permanent files. The new version integrating cloud storage on <strong>AWS S3</strong> is currently under construction.</p>
 
       <div class = "col-md-8 offset-md-2">
-        <form id = "fileuploader-dropzone" class = "bordered-box" enctype = "multipart/form-data" method = "POST" onsubmit = ""> <!-- action = "/fileuploader/uploadfiles" -->
+        <form id = "fileuploader-dropzone" class = "bordered-box" enctype = "multipart/form-data"> <!-- method = "POST" onsubmit = "" action = "/fileuploader/uploadfiles" -->
           <input type = "file" name = "fileuploader-input" id = "fileuploader-input" class = "d-none" multiple = "">
           <label for = "fileuploader-input">Click to browse or drag and drop your files here.</label>
           <div id = "progress-display">
