@@ -7,6 +7,8 @@ const news = require('../controllers/05_news.js');
 const fileuploader = require('../controllers/06_fileuploader.js');
 const react = require('../controllers/07_react.js');
 
+const fileuploaderAws = require('../controllers/06_fileuploader-awstest.js');
+
 router.get('/', controllers.main);
 router.get('/aboutme/', controllers.aboutme);
 router.get('/snake/', snake.game);
@@ -30,6 +32,11 @@ router.get('/fileuploader/', fileuploader.fileuploader);
 router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploadedFiles);
 router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
+
+router.get('/fileuploader-awstest/', fileuploaderAws.main);
+router.post('/fileuploader-awstest/ex01upload', fileuploaderAws.ex01upload);
+router.post('/fileuploader-awstest/ex02upload', fileuploaderAws.ex02upload);
+router.post('/fileuploader-awstest/ex03upload', fileuploaderAws.ex03upload);
 
 router.get('/react/*', react.main);
 router.get('/reactapi/getfilelist/', react.fileList);

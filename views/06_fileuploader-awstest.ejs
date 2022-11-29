@@ -1,0 +1,37 @@
+<%# <html> %>
+<%- include('00a_header.ejs') %>
+    <link rel = "stylesheet" href = "/css/06_fileuploader.css">    
+
+    <div class = "container">
+      <h1>file uploader</h1>
+      
+      <section id = "ex01">
+        <h4><strong>Example 01</strong> Formidable fs.readFile</h4>
+        <p>Form - action; formidable; form.on('file'); fs.readFile; s3.upload;</p>
+        <form name = "ex01form" action = "/fileuploader-awstest/ex01upload" method = "POST" enctype = "multipart/form-data">
+          <input id = "ex01input" name = "ex01input" type = "file" multiple>
+          <input type = "submit">
+        </form>
+      </section>
+
+      <section id = "ex02">
+        <h4><strong>Example 02</strong> Formidable fs.createReadStream</h4>
+        <p>Form - action; formidable; form.on('file'); fs.createReadStream; s3.upload;</p>
+        <form name = "ex02form" action = "/fileuploader-awstest/ex02upload" method = "POST" enctype = "multipart/form-data">
+          <input id = "ex02input" name = "ex02input" type = "file" multiple>
+          <input type = "submit">
+        </form>
+      </section>
+
+      <section id = "ex03">
+        <h4><strong>Example 03</strong> Formidable dataStream.pipe(uploadStream)</h4>
+        <p>Form - action; formidable; form.on('file'); fs.createReadStream; pipe; uploadStream</p>
+        <form name = "ex03form" action = "/fileuploader-awstest/ex03upload" method = "POST" enctype = "multipart/form-data">
+          <input id = "ex03input" name = "ex01input" type = "file" multiple>
+          <input type = "submit">
+        </form>
+      </section>
+    </div>
+
+<%- include('00b_footer.ejs') %>
+<%# </html> %>
