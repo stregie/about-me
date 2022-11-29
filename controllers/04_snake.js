@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 const mysqlConfig = {
-  host: process.env.CLEARDB_HOST,
-  user: process.env.CLEARDB_USER,
-  password: process.env.CLEARDB_PASS,
-  database: process.env.CLEARDB_DB
+  host: process.env.SQL_HOST,
+  user: process.env.SQL_USER,
+  password: process.env.SQL_PASS,
+  database: process.env.SQL_DB
 };
 
 exports.game = (req, res) => {
