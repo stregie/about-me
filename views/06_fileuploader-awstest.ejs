@@ -88,6 +88,54 @@
           <input type = "submit">
         </form>
       </section>
+
+      <section id = "ex05">        
+        <h4><strong>Example 05:</strong> XHR</h4>
+        <p>API for example 01 is used. Files are uploaded via XHR</p>
+        <form name = "ex05form" enctype = "multipart/form-data">
+          <input id = "ex05input" name = "ex05input" type = "file" multiple>
+        </form>
+        <button id = "ex05btn" class = "btn btn-simple">Submit</button>
+        <p>Server response: <span id = "ex05res"></span></p>
+        
+        
+        <script>
+          $(document).ready(function(){
+            $('#ex05btn').click(ex05upload);
+          });
+
+          function ex05upload(){
+            const formData = new FormData();
+            const selectedFiles = document.querySelector('#ex05input').files;
+            const resp = document.querySelector('#ex05res');
+
+            if (selectedFiles.length <= 0){
+              resp.textContent = "No files selected.";
+              return;
+            }
+
+            for (let i = 0; i < selectedFiles.length; i++){
+              formData.append('file', selectedFiles[i]);
+            };
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/fileuploader-awstest/ex01upload'); 
+            xhr.send(formData);
+            
+            xhr.onload = (e) => {
+              if (xhr.status != 200) {
+                resp.textContent = `Error ${xhr.status}: ${xhr.statusText}`;
+              } else {
+                resp.textContent = xhr.response; 
+              }
+            };
+
+            xhr.onerror = () => {
+              resp.textContent = "Request failed";
+            };
+          };
+        </script>
+      </section>
     </div>
 
 <%- include('00b_footer.ejs') %>
