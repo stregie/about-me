@@ -34,9 +34,12 @@ router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
 
 router.get('/fileuploader-awstest/', fileuploaderAws.main);
+router.get('/fileuploader-awstest/objectList', fileuploaderAws.objectList);
+router.get('/fileuploader-awstest/delete', fileuploaderAws.delete);
 router.post('/fileuploader-awstest/ex01upload', fileuploaderAws.ex01upload);
 router.post('/fileuploader-awstest/ex02upload', fileuploaderAws.ex02upload);
 router.post('/fileuploader-awstest/ex03upload', fileuploaderAws.ex03upload);
+router.post('/fileuploader-awstest/ex04upload', fileuploaderAws.ex04upload);
 
 router.get('/react/*', react.main);
 router.get('/reactapi/getfilelist/', react.fileList);

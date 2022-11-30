@@ -4,6 +4,54 @@
 
     <div class = "container">
       <h1>file uploader</h1>
+      <pre>Ideas: finish request when file is uploaded to the bucket, not on form.('end'). Maybe use promises. At example 01, put console.log on the fs.readFile. Every time create some kind of console event to show that the temporary file is still there and actually read.</pre>
+
+      <section id = "file-list">
+        <div class = "row addmargintop">      
+          <table id = "table00" class = "table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Index</th>
+                <th>FileName</th>
+                <th>File Size</th>
+                <th>AWS Key</th>
+                <!-- <th>Download</th> -->
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id = "file-list-table-content">
+            </tbody>
+          </table>
+
+          <button id = "file-list-btn" class = "btn btn-simple">Refresh</button>
+        </div>
+
+        <script>
+          $(document).ready(function(){
+            $('#file-list-btn').click(getObjectList);
+            getObjectList();
+          });
+
+          function getObjectList() {
+            let $fileList = "";
+            fetch('/fileuploader-awstest/objectList')
+            .then(res => res.json())
+            .then(data => {            
+              // console.log(data);
+              data.forEach((file, index) => {
+                $fileList += '<tr> "\r\n"';
+                $fileList += ' <td>' + index + '</td> "\r\n"';
+                $fileList += ' <td>' + file.Name + '</td> "\r\n"';
+                $fileList += ' <td>' + file.Size + '</td> "\r\n"';
+                $fileList += ' <td>' + file.Key + '</td> "\r\n"';
+                $fileList += ' <td>' + '<a href = "/fileuploader-awstest/delete/?file=' + file.Name + '">Link</a></td> "\r\n"';
+                $fileList += '</tr> "\r\n"';
+              });
+              $('#file-list-table-content').html($fileList);
+            })
+          };
+        </script>
+      </section>
       
       <section id = "ex01">
         <h4><strong>Example 01</strong> Formidable fs.readFile</h4>
@@ -27,7 +75,16 @@
         <h4><strong>Example 03</strong> Formidable dataStream.pipe(uploadStream)</h4>
         <p>Form - action; formidable; form.on('file'); fs.createReadStream; pipe; uploadStream</p>
         <form name = "ex03form" action = "/fileuploader-awstest/ex03upload" method = "POST" enctype = "multipart/form-data">
-          <input id = "ex03input" name = "ex01input" type = "file" multiple>
+          <input id = "ex03input" name = "ex03input" type = "file" multiple>
+          <input type = "submit">
+        </form>
+      </section>
+
+      <section id = "ex04">
+        <h4><strong>Example 04</strong> ex01 with res.send at the end</h4>
+        <p>No multiples since otherwise more than one res.send will be sent.</p>
+        <form name = "ex04form" action = "/fileuploader-awstest/ex04upload" method = "POST" enctype = "multipart/form-data">
+          <input id = "ex04input" name = "ex04input" type = "file">
           <input type = "submit">
         </form>
       </section>
