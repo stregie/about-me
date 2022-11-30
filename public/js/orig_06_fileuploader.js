@@ -39,9 +39,9 @@ function displaySelectedFiles(){
   for (let i = 0; i < selectedFiles.length; i++){
     totalSize += selectedFiles[i].size;
   }        
-  if (totalSize > 4 * 2 ** 20){
-    alert("Upload size exceeds the 4 MB limit!");
-  }
+  // if (totalSize > 5 * 2 ** 20){
+  //   alert("Upload size exceeds the 5 MB limit!"); // ez kell ide?
+  // }
 
   let $selectedFiles = "";
   for (let i = 0; i < selectedFiles.length - 1; i++){
@@ -78,10 +78,10 @@ function uploadFiles(){
     totalSize += selectedFiles[i].size;
   }
   
-  if (totalSize > 4 * 2 ** 20){
-    alert("Upload size exceeds the 4 MB limit! You cannot upload the files.");
-    return;
-  }
+  // if (totalSize > 5 * 2 ** 20){
+  //   alert("Upload size exceeds the 5 MB limit! You cannot upload the files.");
+  //   return;
+  // }
 
   let data = new FormData();
   for (let i = 0; i < selectedFiles.length; i++){
@@ -89,7 +89,7 @@ function uploadFiles(){
   }
 
   let request = new XMLHttpRequest();
-  request.open('POST', '/fileuploader/upload'); 
+  request.open('POST', '/fileuploader/uploadfiles'); 
 
   request.upload.addEventListener('progress', function(e) {
     let percent_completed = Math.floor((e.loaded / e.total) * 100);
@@ -110,17 +110,15 @@ function uploadFiles(){
 
 function displayFilesOnServer(){
   let $tableContents = "";
-  fetch('/fileuploader/filelist')
+  fetch('/fileuploader/getuploadedfiles')
   .then(response => response.json())
   .then(files => {
-    console.log(files);
     files.forEach((file, index) => {
       $tableContents += '<tr> "\r\n"';
-      $tableContents += '  <th scope = "row">' + (index + 1)  + '</th> "\r\n"';
-      $tableContents += '  <td>' + file.Name + '</td> "\r\n"';
-      $tableContents += '  <td>' + displaySize(file.Size) + '</td> "\r\n"';
-      $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.Name + '">Download</a></td> "\r\n"';
-      $tableContents += '  <td><a href = "/fileuploader/delete?file=' + file.Name + '">Delete</a></td> "\r\n"';
+      $tableContents += '  <th scope = "row">' + index  + '</th> "\r\n"';
+      $tableContents += '  <td>' + file.filename + '</td> "\r\n"';
+      $tableContents += '  <td>' + displaySize(file.filesize) + '</td> "\r\n"';
+      $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.filename + '">link</a></td> "\r\n"';
       $tableContents += '</tr> "\r\n"';
     });
     $('#filelist-table tbody').html($tableContents);

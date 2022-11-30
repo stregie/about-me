@@ -28,10 +28,14 @@ router.post('/news/editor/update', news.update);
 router.post('/news/editor/delete', news.delete);
 router.get('/news/editor/images/', news.images);
 
-router.get('/fileuploader/', fileuploader.fileuploader);
-router.get('/fileuploader/getuploadedfiles', fileuploader.fileuploaderGetUploadedFiles);
-router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
-router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
+router.get('/fileuploader/', fileuploader.main);
+router.get('/fileuploader/filelist', fileuploader.fileList);
+router.post('/fileuploader/upload', fileuploader.upload);
+router.get('/fileuploader/download', fileuploader.download);
+router.get('/fileuploader/delete', fileuploader.delete);
+
+// router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
+// router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
 
 router.get('/fileuploader-awstest/', fileuploaderAws.main);
 router.get('/fileuploader-awstest/objectList', fileuploaderAws.objectList);

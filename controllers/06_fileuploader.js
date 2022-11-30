@@ -2,70 +2,170 @@ const fs = require('fs');
 const formidable = require('formidable');
 const path = require('path');
 
-exports.fileuploader = (req, res) => {
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3;
+
+const awsFolder = 'about-me/fileuploader/';
+
+exports.main = (req, res) => {
 	res.render('06_fileuploader.ejs', null);
 };
 
-exports.fileuploaderGetUploadedFiles = (req, res) => {
-  // let dirpath = path.join(__dirname, '..', 'tmp');
+exports.fileList = (req, res) => {
+  const awsParams = {
+    Bucket: process.env.AWS_BUCKET
+  };
 
-  let dirpath = "";
-  switch (process.env.NODE_ENV){
-    case "development":
-      console.log("Environment: development");
-      dirpath = path.join(__dirname, '..', 'tmp');
-      break;
-    case "production":
-      console.log("Environment: production");
-      dirpath = '/tmp';
-      break;
-  }
+  s3.listObjects(awsParams, (err, data) => {
+    if(err) {
+      console.log(err);
+      res.status(err.statusCode).send(`Getting file list was unsuccessful: ${err.code}`);
+    } else {
+      const fileList = [];
+      data.Contents.filter((file) => {
+        return file.Key.match(awsFolder) !== null
+      }).forEach((file) => {
+        let lastChar = file.Key.charAt(file.Key.length - 1);
+        let notFolder = Boolean(lastChar != "/");
+        if (notFolder){
+          fileList.push({
+            Key: file.Key,
+            Name: file.Key.slice(awsFolder.length),
+            Size: file.Size
+          });
+        }
+      });
+      res.json(fileList);
+    }
+  });
+};
 
-  let filelist = [];
-  fs.readdir(dirpath, (err, files) => {
-    files.forEach((file, index) => {
-      filelist[index] = {filename: file};
-      let stats = fs.statSync(dirpath + "/" + file);
-      filelist[index].filesize = stats.size;
+exports.upload = (req, res) => {
+  const form = formidable({ multiples: true });
+
+  form.parse(req, (err, fields, files) => {
+    if (err) console.log('form.parse err', err);
+    console.log('form.parse files', files);
+    console.log('form.parse files fired');
+  });
+
+  form.on('file', (formname, file) => {
+    console.log('form.on file.filepath', file.filepath);
+    console.log('form.on file.originalFilename', file.originalFilename);
+
+    let awsKey = awsFolder + file.originalFilename;
+
+    fs.readFile(file.filepath, (err, data) => {
+      console.log('readFile err', err);
+      console.log('readFile data', data);
+
+      let awsParams = {
+        Bucket: process.env.AWS_BUCKET,
+        Key: awsKey,
+        Body: data
+      };
+
+      s3.upload(awsParams, (err, data) => {
+        if(err) {
+          console.log(err);
+          res.status(err.statusCode).send("Upload was not successful: " + err.code);
+        } else {
+          console.log(`S3: ${awsKey} uploaded successfully`);
+        }
+      });
     });
-    res.json(filelist);
+  })
+
+  form.once('end', () => {
+    console.log('form.once end');
+    res.send("done");
   });
 };
 
-exports.fileuploaderPostFiles = (req, res) => {
-  let dirpath = "";
-  switch (process.env.NODE_ENV){
-    case "development":
-      console.log("Environment: development");
-      dirpath = path.join(__dirname, '..', 'tmp');
-      break;
-    case "production":
-      console.log("Environment: production");
-      dirpath = '/tmp';
-      break;
-  }
-  
-  const form = new formidable.IncomingForm();
-  form.multiples = true;
-  form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
-  form.uploadDir = dirpath;
+exports.download = (req, res) => {
+  const fileName = req.query.file;
+  const awsKey = awsFolder + fileName;
+  const tmpPath = `/tmp/${fileName}`;
 
-  form.parse(req);
+  const params = {
+    Bucket: process.env.AWS_BUCKET,
+    Key: awsKey
+  };
 
-  form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
-    file.filepath = path.join(dirpath, file.originalFilename);
+  s3.getObject(params, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(err.statusCode).send("Download unsuccessful: " + err.code);
+    } else {
+      fs.writeFileSync(tmpPath, data.Body);
+      
+      res.download(tmpPath, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          fs.unlink(tmpPath, (err) => {
+            if (err) console.log(err);
+          });
+          console.log('temporary file deleted');
+        }
+      });
+    }
   });
-
-  form.on('file', function (name, file) { // called when file uploaded and saved.   
-    console.log('Uploaded ' + file.originalFilename);      
-  });
-
-  res.send("Files successfully uploaded!");
 };
 
-exports.fileuploaderDownload = (req, res) => {
-  let dirpath = path.join(__dirname, '..', 'tmp');
-  // console.log(req.query.file);
-  let filepath = dirpath + "/" + req.query.file;
-  res.download(filepath);
+exports.delete = (req, res) => {
+  const fileName = req.query.file;
+  const awsKey = awsFolder + fileName;
+
+  const awsParams = {
+    Bucket: process.env.AWS_BUCKET,
+    Key: awsKey
+  };
+
+  return s3.deleteObject(awsParams, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(err.statusCode).send("Delete unsuccessful: " + err.code);
+    } else {
+      res.send(`${fileName} deleted.`);
+    }
+  });
 };
+
+// exports.fileuploaderPostFiles = (req, res) => {
+//   let dirpath = "";
+//   switch (process.env.NODE_ENV){
+//     case "development":
+//       console.log("Environment: development");
+//       dirpath = path.join(__dirname, '..', 'tmp');
+//       break;
+//     case "production":
+//       console.log("Environment: production");
+//       dirpath = '/tmp';
+//       break;
+//   }
+//   
+//   const form = new formidable.IncomingForm();
+//   form.multiples = true;
+//   form.maxFileSize = 5 * 2 ** 20; // FieldsSize? Unsure if it is the right property
+//   form.uploadDir = dirpath;
+// 
+//   form.parse(req);
+// 
+//   form.on('fileBegin', function (name, file) { // name: form name; file: file object. Called when file uploaded but not saved 
+//     file.filepath = path.join(dirpath, file.originalFilename);
+//   });
+// 
+//   form.on('file', function (name, file) { // called when file uploaded and saved.   
+//     console.log('Uploaded ' + file.originalFilename);      
+//   });
+// 
+//   res.send("Files successfully uploaded!");
+// };
+// 
+// exports.fileuploaderDownload = (req, res) => {
+//   let dirpath = path.join(__dirname, '..', 'tmp');
+//   // console.log(req.query.file);
+//   let filepath = dirpath + "/" + req.query.file;
+//   res.download(filepath);
+// };
