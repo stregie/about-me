@@ -32,7 +32,7 @@ router.get('/fileuploader/', fileuploader.main);
 router.get('/fileuploader/filelist', fileuploader.fileList);
 router.post('/fileuploader/upload', fileuploader.upload);
 router.get('/fileuploader/download', fileuploader.download);
-router.get('/fileuploader/delete', fileuploader.delete);
+router.delete('/fileuploader/delete', fileuploader.delete);
 
 // router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
 // router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);

@@ -78,7 +78,7 @@ exports.upload = (req, res) => {
 
   form.once('end', () => {
     console.log('form.once end');
-    res.send("done");
+    res.send(`Files uploaded successfully.`);
   });
 };
 

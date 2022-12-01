@@ -7,6 +7,7 @@ $(document).ready(function(){
   $('#submit-button').click(uploadFiles);
   displaySelectedFiles();
   displayFilesOnServer();
+  setInterval(displayFilesOnServer, 2000);
 });
 
 function dragoverHandler(event){
@@ -108,19 +109,30 @@ function uploadFiles(){
   request.send(data);
 };
 
+function deleteFile(filename) {
+  fetch(`/fileuploader/delete?file=${filename}`, {
+    method: 'DELETE'
+  })
+  .then(response => response.text())
+  .then(res => {
+    console.log(res);
+  });
+};
+
 function displayFilesOnServer(){
   let $tableContents = "";
   fetch('/fileuploader/filelist')
   .then(response => response.json())
   .then(files => {
-    console.log(files);
     files.forEach((file, index) => {
       $tableContents += '<tr> "\r\n"';
       $tableContents += '  <th scope = "row">' + (index + 1)  + '</th> "\r\n"';
       $tableContents += '  <td>' + file.Name + '</td> "\r\n"';
       $tableContents += '  <td>' + displaySize(file.Size) + '</td> "\r\n"';
-      $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.Name + '">Download</a></td> "\r\n"';
-      $tableContents += '  <td><a href = "/fileuploader/delete?file=' + file.Name + '">Delete</a></td> "\r\n"';
+      $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.Name + '">Link</a></td> "\r\n"';
+      // $tableContents += '  <td><a href = "/fileuploader/delete?file=' + file.Name + '">Delete</a></td> "\r\n"';
+      $tableContents += `  <td><button class = "btn" onclick = "deleteFile('${file.Name}')"><span class = "material-symbols-outlined">delete</span>
+</button></td> "\r\n"`;
       $tableContents += '</tr> "\r\n"';
     });
     $('#filelist-table tbody').html($tableContents);
