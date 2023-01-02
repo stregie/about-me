@@ -1,43 +1,49 @@
-const mysql = require('mysql2');
-
-const mysqlConfig = {
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_USER,
-  password: process.env.SQL_PASS,
-  database: process.env.SQL_DB
-};
+const { Client } = require('pg');
+const pgConfig = process.env.POSTGRESQL_URL;
 
 exports.game = (req, res) => {
   res.render('04_snake.ejs', null);
 };
 
 exports.postScore = (req, res) => {
-  const con = mysql.createConnection(mysqlConfig);
   let data = req.body;
+  let sqlQuery = {
+    text: 'INSERT INTO snake_highscore (Player, Score, Speed) VALUES($1, $2, $3);',
+    values: [data.player, data.score, data.speed]
+  };
 
-  con.connect(function(err) {
-    if (err) throw err;
+  const client = new Client(pgConfig);
+  client.connect();
 
-    let sqlQuery = 'INSERT INTO snake_highscore (Player, Score, Speed) VALUES(?, ?, ?);';
-    let sqlData = [data.player, data.score, data.speed];
-               
-    con.execute(sqlQuery, sqlData, function (err, result) {
-      if (err) throw err;
-      res.send("Score recorded to database");;
-    });
+  client.query(sqlQuery, (err, result) => {
+    if (err) {
+      console.log(err.stack);
+      res.send("not ok");
+    } else {
+      res.send("Score recorded to database");
+    }
+
+    client.end();
   });
 };
 
 exports.getScore = (req, res) => {
-  const con = mysql.createConnection(mysqlConfig);
+  let sqlQuery = 'SELECT * FROM snake_highscore ORDER BY Score DESC, Speed DESC, ID DESC LIMIT 10;';
 
-  con.connect(function(err) {
-    if (err) throw err;
+  const client = new Client(pgConfig);
+  client.connect();
 
-    let sqlQuery = 'SELECT * FROM snake_highscore ORDER BY Score DESC, Speed DESC, ID DESC LIMIT 10;';
-    con.query(sqlQuery, function (err, result) {
-      if (err) throw err;
-      res.json(result);
-    });
+  client.query(sqlQuery, (err, result) => {
+    if (err) {
+      console.log(err)
+      res.json({
+        message: "Something is not ok."
+      });
+    } else {
+      // console.log(result.rows);
+      res.json(result.rows);
+    }
+
+    client.end();
   });
 };

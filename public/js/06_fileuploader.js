@@ -130,7 +130,6 @@ function displayFilesOnServer(){
       $tableContents += '  <td>' + file.Name + '</td> "\r\n"';
       $tableContents += '  <td>' + displaySize(file.Size) + '</td> "\r\n"';
       $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.Name + '">Link</a></td> "\r\n"';
-      // $tableContents += '  <td><a href = "/fileuploader/delete?file=' + file.Name + '">Delete</a></td> "\r\n"';
       $tableContents += `  <td><button class = "btn" onclick = "deleteFile('${file.Name}')"><span class = "material-symbols-outlined">delete</span>
 </button></td> "\r\n"`;
       $tableContents += '</tr> "\r\n"';

@@ -193,13 +193,14 @@ function showHighScore(){
   .then(res => res.json())
   .then(data => {    
     displayData(data);
+    console.log(data);
   })
 };
 
 function displayData(data){
   $('#highscore tbody').html('');
   for (let i = 0; i < data.length; i++){
-    let html = "<tr><td>" + data[i].Player + "</td><td>" + data[i].Score + "</td><td>" + data[i].Speed;
+    let html = "<tr><td>" + data[i].player + "</td><td>" + data[i].score + "</td><td>" + data[i].speed;
     $('#highscore').find('tbody').append(html);
   }
 };

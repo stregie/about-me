@@ -7,7 +7,7 @@ const news = require('../controllers/05_news.js');
 const fileuploader = require('../controllers/06_fileuploader.js');
 const react = require('../controllers/07_react.js');
 
-const fileuploaderAws = require('../controllers/06_fileuploader-awstest.js');
+
 
 router.get('/', controllers.main);
 router.get('/aboutme/', controllers.aboutme);
@@ -34,21 +34,8 @@ router.post('/fileuploader/upload', fileuploader.upload);
 router.get('/fileuploader/download', fileuploader.download);
 router.delete('/fileuploader/delete', fileuploader.delete);
 
-// router.post('/fileuploader/uploadfiles', fileuploader.fileuploaderPostFiles);
-// router.get('/fileuploader/download/', fileuploader.fileuploaderDownload);
-
-router.get('/fileuploader-awstest/', fileuploaderAws.main);
-router.get('/fileuploader-awstest/objectList', fileuploaderAws.objectList);
-router.get('/fileuploader-awstest/delete', fileuploaderAws.delete);
-router.post('/fileuploader-awstest/ex01upload', fileuploaderAws.ex01upload);
-router.post('/fileuploader-awstest/ex02upload', fileuploaderAws.ex02upload);
-router.post('/fileuploader-awstest/ex03upload', fileuploaderAws.ex03upload);
-router.post('/fileuploader-awstest/ex04upload', fileuploaderAws.ex04upload);
-
 router.get('/react/*', react.main);
 router.get('/reactapi/getfilelist/', react.fileList);
 router.get('/reactapi/images/:album/:image', react.sendImage);
-
-router.get('/mongotest/', controllers.mongotest);
 
 module.exports = router;
