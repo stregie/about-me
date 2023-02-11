@@ -90,7 +90,7 @@ function uploadFiles(){
   }
 
   let request = new XMLHttpRequest();
-  request.open('POST', '/fileuploader/upload'); 
+  request.open('PUT', '/fileuploader/file'); 
 
   request.upload.addEventListener('progress', function(e) {
     let percent_completed = Math.floor((e.loaded / e.total) * 100);
@@ -110,7 +110,7 @@ function uploadFiles(){
 };
 
 function deleteFile(filename) {
-  fetch(`/fileuploader/delete?file=${filename}`, {
+  fetch(`/fileuploader/file?name=${filename}`, {
     method: 'DELETE'
   })
   .then(response => response.text())
@@ -129,7 +129,7 @@ function displayFilesOnServer(){
       $tableContents += '  <th scope = "row">' + (index + 1)  + '</th> "\r\n"';
       $tableContents += '  <td>' + file.Name + '</td> "\r\n"';
       $tableContents += '  <td>' + displaySize(file.Size) + '</td> "\r\n"';
-      $tableContents += '  <td><a href = "/fileuploader/download?file=' + file.Name + '">Link</a></td> "\r\n"';
+      $tableContents += '  <td><a href = "/fileuploader/file?name=' + file.Name + '">Link</a></td> "\r\n"';
       $tableContents += `  <td><button class = "btn" onclick = "deleteFile('${file.Name}')"><span class = "material-symbols-outlined">delete</span>
 </button></td> "\r\n"`;
       $tableContents += '</tr> "\r\n"';

@@ -1,3 +1,4 @@
 *.env
 cmdhere.lnk
 start_server.lnk
+node_modules/

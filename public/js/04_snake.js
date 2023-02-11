@@ -189,7 +189,7 @@ function showHighScore(){
   document.getElementById('start-btn-container').classList.add('d-none');
   document.getElementById('speed-controls').classList.add('d-none');
 
-  fetch('/snake/getScore')
+  fetch('/snake/highscore')
   .then(res => res.json())
   .then(data => {    
     displayData(data);
@@ -226,7 +226,7 @@ function submitScore(){
       speed: lowestSpeed
     };
 
-    fetch('/snake/postScore/', {
+    fetch('/snake/score/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
