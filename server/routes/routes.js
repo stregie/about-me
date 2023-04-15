@@ -21,6 +21,9 @@ router.get('/news/editor/', news.articleListEdit);
 router.get('/news/editor/edit/', news.articleEdit);
 router.get('/fileuploader/', pages.fileuploader);
 router.get('/react/*', pages.react);
+router.get('/design01/', pages.design01);
+router.get('/design02/', pages.design02);
+router.get('/design03/', pages.design03);
 
 
 

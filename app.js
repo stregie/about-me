@@ -3,6 +3,17 @@ const envVars = require('./server/config/env-vars.js');
 const express = require('express');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const livereload = require("livereload");
+const connectLivereload = require("connect-livereload");
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch(path.join(__dirname));
+
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
 
 const app = express();
 
@@ -14,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(connectLivereload());  
 
 const routes = require('./server/routes/routes');
 app.use('/', routes);

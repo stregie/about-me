@@ -1,4 +1,5 @@
 *.env
+.gitignore
 cmdhere.lnk
 start_server.lnk
 node_modules/
