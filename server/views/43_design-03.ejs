@@ -41,6 +41,14 @@
             <li class = "navigation-dropdown-item"><a href = "#">Image Gallery <span class = "technology">React</span></a></li>
           </ul>
         </li>
+        <li class = "navigation-item navigation-dropdown">
+          <button class = "navigation-dropdown-btn" href = "#">Dropdown 2<span class = "navigation-dropdown-arrow"></span></button>          
+          <ul class = "navigation-dropdown-menu">
+            <li class = "navigation-dropdown-item"><a href = "#">Item 1<span class = "technology">Info 1</span></a></li>
+            <li class = "navigation-dropdown-item"><a href = "#">Item 2 <span class = "technology">Info 2</span></a></li>
+            <li class = "navigation-dropdown-item"><a href = "#">Item 3</a></li>
+          </ul>
+        </li>
         <!-- <li class = "navigation-item navigation-dropdown"><button class = "navigation-dropdown-btn" href = "#">Item 3 &dtrif;</button>
           <ul class = "navigation-dropdown-menu">
             <li class = "navigation-dropdown-item"><a href = "#">Item 3a</a></li>
@@ -57,6 +65,8 @@
     $(document).ready(function(){
       $('#off-canvas-toggler-btn').click(toggleOffCanvas);
       $('.navigation-dropdown-btn').click(toggleDropdown);
+      // $('.navigation-dropdown-menu').hover(dropdownMenuHoverOn, dropdownMenuHoverOff);
+      // $('.navigation-dropdown-btn').hover(dropdownMenuHoverOn, dropdownMenuHoverOff);
     });
     function toggleOffCanvas(){
       $('.navigation-menu').toggleClass('hide');
@@ -65,7 +75,16 @@
     function toggleDropdown(){      
       $(this).nextAll(".navigation-dropdown-menu").toggleClass("open");
       $(this).toggleClass("open");      
+    };
+    function dropdownMenuHoverOn(){
+      $(this).prevAll(".navigation-dropdown-btn").find(".navigation-dropdown-arrow").css("transform", "rotate(-90deg)");
     }
+    function dropdownMenuHoverOff(){
+      $(this).prevAll(".navigation-dropdown-btn").find(".navigation-dropdown-arrow").css("transform", "rotate(90deg)");
+      
+    }
+
+
   </script>
 </body>
 </html>
