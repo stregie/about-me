@@ -2,4 +2,5 @@
 .gitignore
 cmdhere.lnk
 start_server.lnk
+start_browsersync.lnk 
 node_modules/

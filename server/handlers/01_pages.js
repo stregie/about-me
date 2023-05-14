@@ -26,15 +26,3 @@ exports.fileuploader = (req, res) => {
 exports.react = (req, res) => {
   res.render('07_react.ejs', null);
 };
-
-exports.design01 = (req, res) => {
-  res.render('41_design-01.ejs', null);
-};
-
-exports.design02 = (req, res) => {
-  res.render('42_design-02.ejs', null);
-};
-
-exports.design03 = (req, res) => {
-  res.render('43_design-03.ejs', null);
-};
